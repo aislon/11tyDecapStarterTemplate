@@ -4,7 +4,8 @@
   "main": "index.js",
 "scripts": {
     "start": "npx eleventy --serve",
-    "build": "npx eleventy"
+    "build": "npx eleventy",
+    "offline": "npx neltify-cms-proxy-server"
   },
   "author": "",
   "license": "ISC",
