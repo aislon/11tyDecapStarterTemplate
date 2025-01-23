@@ -8,7 +8,8 @@
     "clean": "rm -rf _site",
     "dev": "npx eleventy --serve --watch",
     "debug": "DEBUG=* eleventy",
-    "serve": "npm run build && npx serve _site"
+    "serve": "npm run build && npx serve _site",
+    "netlify:build": "npx eleventy"
   },
   "author": "",
   "license": "ISC",
