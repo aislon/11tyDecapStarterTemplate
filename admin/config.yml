@@ -11,7 +11,7 @@ site_url: http://localhost:8080/
 logo_url: /admin/aislonLogo.png
 
 # Please run "npx netlify-cms-proxy-server" for local backend
-local_backend: true
+local_backend: false
 # publish_mode: editorial_workflow
 collections:
 - label: "Home"
