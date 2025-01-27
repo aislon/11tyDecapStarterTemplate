@@ -4,10 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aislon</title>
-<script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 </head>
 <body>
     hi world
+
+
+
+
+<script>
+  // Check if URL contains invite_token
+  if (window.location.hash.includes('invite_token')) {
+    const currentHash = window.location.hash;
+    const adminPath = '/admin/' + currentHash;
+    
+    // Redirect while preserving the token
+    window.location.href = adminPath;
+  }
+</script>
+
+// ...existing code...
 </body>
 </html>
