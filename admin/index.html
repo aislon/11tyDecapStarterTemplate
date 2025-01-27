@@ -29,10 +29,38 @@
     <!-- <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
        <script src="netlify-identity-widget.js"></script>
     
+
+
+
+
+
+        <!-- Script for accepting netlify auth link callbacks? -->
+       <script>
+        // Initialize Netlify Identity
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on("init", user => {
+            if (!user) {
+              window.netlifyIdentity.on("login", () => {
+                document.location.href = "/admin/";
+              });
+            }
+          });
+  
+          // Handle redirect after email confirmation
+          window.netlifyIdentity.on("error", err => console.error("Netlify Identity error:", err));
+          window.netlifyIdentity.on("login", () => {
+            console.log("Logged in successfully");
+            window.location.href = "/admin/#/";
+          });
+          window.netlifyIdentity.on("logout", () => {
+            console.log("Logged out");
+            window.location.href = "/";
+          });
+        }
+      </script>
+
+
     <!-- Navbar Analytics Button -->
-    ¨
-    
-<!-- Analytic Button  -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // Function to create and insert the new button
