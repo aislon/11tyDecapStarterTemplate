@@ -4,7 +4,7 @@ backend:
   branch: experimental
   ### enable below lines for github integration ###
   # name: github
-  # repo: surjithctly/neat-starter
+  # repo: aislon/11tyDecapStarterTemplate
 media_folder: "assets/img"  
 public_folder: "/static/img"
 site_url: http://localhost:8080/

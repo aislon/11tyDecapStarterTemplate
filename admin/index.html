@@ -21,18 +21,18 @@
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
      <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>  -->
-    <!-- <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script> -->
+  
     <script src="decap-cms.js"></script>
 
 
     
     <!-- <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
-       <!-- <script src="netlify-identity-widget.js"></script> -->
+       <script src="netlify-identity-widget.js"></script>
     
     <!-- Navbar Analytics Button -->
     ¨
     
-
+<!-- Analytic Button  -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // Function to create and insert the new button
@@ -67,5 +67,168 @@
         observer.observe(document.body, { childList: true, subtree: true });
       });
     </script>
+
+<script>
+// Wait for DOM and all resources to load
+window.addEventListener('load', function() {
+  // Check if main container exists before proceeding
+  const mainContainer = document.querySelector('.css-1fehwpo-AppMainContainer');
+  if (!mainContainer) return;
+
+  // Create mobile navigation toggle
+  const createMobileNav = () => {
+    const header = document.querySelector('.css-8zenuf-AppHeader-css');
+    const nav = document.querySelector('.css-29qn50-AppHeaderNavList');
+    
+    const toggle = document.createElement('button');
+    toggle.classList.add('mobile-nav-toggle');
+    toggle.innerHTML = '<span></span><span></span><span></span>';
+    header.insertBefore(toggle, nav);
+
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('nav-open');
+      toggle.classList.toggle('open');
+    });
+  };
+
+  // Enhanced responsive styles
+  const responsiveStyles = `
+    /* Mobile Navigation Toggle */
+    .mobile-nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      background: transparent;
+      border: none;
+      padding: 8px;
+      z-index: 1000;
+    }
+    
+    .mobile-nav-toggle span {
+      width: 24px;
+      height: 2px;
+      background: currentColor;
+      transition: 0.3s;
+    }
+
+    /* Dashboard Layout */
+    @media screen and (max-width: 1024px) {
+      .css-pyxbz6-CollectionContainer {
+        flex-direction: column;
+      }
+      
+      .css-102us41-SidebarContainer-card-card {
+        width: 100%;
+        margin-bottom: 16px;
+      }
+    }
+
+    /* Tablet & Mobile Navigation */
+    @media screen and (max-width: 768px) {
+      .mobile-nav-toggle {
+        display: flex;
+      }
+
+      .css-29qn50-AppHeaderNavList {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: #fff;
+        padding: 16px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        flex-direction: column;
+      }
+
+      .nav-open {
+        display: flex !important;
+      }
+
+      .css-y5bbau-AppHeaderContent {
+        padding: 8px 16px;
+      }
+
+      /* Dashboard Cards */
+      .css-1y2l20x-CardsGrid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 16px;
+      }
+
+      /* Form Elements */
+      input, select, textarea {
+        font-size: 16px !important;
+        max-width: 100%;
+      }
+    }
+
+    /* Small Mobile Devices */
+    @media screen and (max-width: 480px) {
+      .css-1fehwpo-AppMainContainer {
+        padding: 8px;
+      }
+
+      .css-j0g0ov-AppHeaderSiteLink {
+        font-size: 14px;
+      }
+
+      /* Touch-friendly buttons */
+      button, 
+      .css-b18hzq-AppHeaderNavLink-AppHeaderButton-button,
+      .css-xduxlj-AppHeaderButton-button {
+        min-height: 44px;
+        padding: 12px;
+      }
+    }
+
+    /* Mobile Menu Animation */
+    .mobile-nav-toggle.open span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+    .mobile-nav-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .mobile-nav-toggle.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+  `;
+
+  // Inject styles
+  const styleElement = document.createElement('style');
+  styleElement.textContent = responsiveStyles;
+  document.head.appendChild(styleElement);
+
+  // Initialize mobile navigation
+  createMobileNav();
+
+  // Add touch gesture support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, {passive: true});
+
+  document.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, {passive: true});
+
+  function handleSwipe() {
+    const swipeThreshold = 100;
+    const nav = document.querySelector('.css-29qn50-AppHeaderNavList');
+    
+    if (touchEndX - touchStartX > swipeThreshold) {
+      // Swipe right - open nav
+      nav.classList.add('nav-open');
+    } else if (touchStartX - touchEndX > swipeThreshold) {
+      // Swipe left - close nav
+      nav.classList.remove('nav-open');
+    }
+  }
+});
+</script>
+
     </body>
     </html>
