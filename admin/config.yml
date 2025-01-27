@@ -5,13 +5,13 @@ backend:
   ### enable below lines for github integration ###
   # name: github
   # repo: surjithctly/neat-starter
-media_folder: "assets/img"
+media_folder: "assets/img"  
 public_folder: "/static/img"
 site_url: http://localhost:8080/
 logo_url: /admin/aislonLogo.png
 
 # Please run "npx netlify-cms-proxy-server" for local backend
-local_backend: false
+local_backend: true
 # publish_mode: editorial_workflow
 collections:
 - label: "Home"

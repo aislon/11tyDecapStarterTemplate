@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>Aislon Web Manager</title>
+    <style>
+     
+
+      .analytics-link:hover {
+        color: rgb(58, 105, 199);
+      }
+      
+      .analytics-link:hover .analytiscIcon svg path {
+        stroke: rgb(58, 105, 199);
+        transition: stroke 0.2s ease;
+      }
+    </style>
   </head>
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
@@ -15,9 +27,45 @@
 
     
     <!-- <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
-    <script src="netlify-identity-widget.js"></script>
+       <!-- <script src="netlify-identity-widget.js"></script> -->
+    
+    <!-- Navbar Analytics Button -->
+    ¨
+    
 
-  </body>
-
-
-</html>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Function to create and insert the new button
+        function addAnalyticsButton() {
+          // Check if the button already exists
+          if (document.querySelector('.analytics-button')) return;
+    
+          var newButton = document.createElement('li');
+          newButton.classList.add('analytics-button');
+          newButton.innerHTML = '<a class="css-b18hzq-AppHeaderNavLink-AppHeaderButton-button-button-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-AppHeaderButton-AppHeaderButton e1rbzf6g5" href="https://aislon.com/web/analytics.html" target="_blank"><span class="e1jeq5dr0 css-5nxuzj-IconWrapper e1jeq5dr1"><svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="Analytics" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"><path d="M4,18.9999905 L7.75407946,11.491832 C7.8680565,11.2638231 8.06482016,11.0879651 8.30413884,11.0001847 C9.11356935,10.7032911 9.60000359,10.8000012 9.76344156,11.2903152 L11.1190224,15.3570574 C11.1996482,15.5988744 11.3695623,15.8007859 11.5940587,15.9215227 C12.3533352,16.3298705 12.8485386,16.3029137 13.079669,15.8406525 L18,5.99999082 M13,6.46409237 L17.2774408,5.31795559 C17.4347269,5.27579637 17.5999292,5.27269863 17.7586883,5.30891799 C18.3183612,5.43660193 18.6397719,5.65560146 18.7229204,5.96591657 L19.9282036,10.4640923" stroke="currentColor" stroke-width="2"/></g></svg></span>Analytics</a>';
+    
+          var navbar = document.querySelector('.css-29qn50-AppHeaderNavList.e1rbzf6g0');
+          if (navbar) {
+            navbar.appendChild(newButton);
+          }
+        }
+    
+        // Create a MutationObserver to watch for the navbar
+        var observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length) {
+              var navbar = document.querySelector('.css-29qn50-AppHeaderNavList.e1rbzf6g0');
+              if (navbar) {
+                addAnalyticsButton();
+                observer.disconnect(); // Stop observing once the button is added
+              }
+            }
+          });
+        });
+    
+        // Start observing the document for changes
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+    </script>
+    </body>
+    </html>
