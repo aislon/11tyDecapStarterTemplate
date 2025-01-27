@@ -97,7 +97,7 @@
     </script>
 
    <script>
-    // Add responsive styles to head
+   // Add responsive styles to head
 const responsiveStyles = document.createElement('style');
 responsiveStyles.textContent = `
   /* Base responsive styles */
@@ -108,24 +108,41 @@ responsiveStyles.textContent = `
       width: 100%;
     }
 
-    /* Header modifications for mobile */
+    /* Fixed header */
     .css-8zenuf-AppHeader-css {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      z-index: 1000;
       padding: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    /* Make header content stack on mobile */
+    /* Header content layout */
     .css-y5bbau-AppHeaderContent {
-      flex-direction: column;
-      gap: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
     }
 
-    /* Adjust nav list for mobile */
+    /* Navigation menu */
     .css-29qn50-AppHeaderNavList {
       display: none;
-      width: 100%;
-      flex-direction: column;
-      padding: 0;
+      position: fixed;
+      top: 56px; /* Height of header */
+      right: 0;
+      width: 250px;
+      height: calc(100vh - 56px);
+      background: white;
+      box-shadow: -2px 0 4px rgba(0,0,0,0.1);
+      padding: 1rem 0;
       margin: 0;
+      flex-direction: column;
+      overflow-y: auto;
+      z-index: 999;
     }
 
     /* Show nav when active */
@@ -133,47 +150,36 @@ responsiveStyles.textContent = `
       display: flex;
     }
 
-    /* Style nav items for mobile */
+    /* Nav items */
     .css-29qn50-AppHeaderNavList li {
       width: 100%;
+      margin: 0;
     }
 
     .css-29qn50-AppHeaderNavList li a,
     .css-29qn50-AppHeaderNavList li button {
       width: 100%;
-      padding: 0.75rem;
+      padding: 1rem 1.5rem;
       justify-content: flex-start;
+      text-align: left;
     }
 
-    /* Adjust header actions for mobile */
-    .css-1xv22zz-AppHeaderActions {
-      width: 100%;
-      justify-content: space-between;
-    }
-
-    /* Main container adjustments */
+    /* Main content adjustment */
     .css-1fehwpo-AppMainContainer {
+      margin-top: 56px; /* Height of fixed header */
       padding: 1rem;
     }
 
-    /* Collection container modifications */
-    .css-pyxbz6-CollectionContainer {
-      flex-direction: column;
-    }
-
-    /* Sidebar adjustments */
-    .css-102us41-SidebarContainer-card-card {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-
-    /* Add hamburger menu button */
+    /* Hamburger menu button */
     .mobile-menu-button {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 0.5rem;
       background: none;
       border: none;
       cursor: pointer;
+      margin-left: auto;
     }
 
     /* Hide menu button on desktop */
@@ -184,8 +190,39 @@ responsiveStyles.textContent = `
       
       .css-29qn50-AppHeaderNavList {
         display: flex !important;
+        position: static;
+        width: auto;
+        height: auto;
+        box-shadow: none;
         flex-direction: row;
+        padding: 0;
+        background: none;
       }
+
+      .css-1fehwpo-AppMainContainer {
+        margin-top: 0;
+      }
+
+      .css-8zenuf-AppHeader-css {
+        position: static;
+        box-shadow: none;
+      }
+    }
+
+    /* Add overlay when menu is open */
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 998;
+    }
+
+    .mobile-menu-overlay.active {
+      display: block;
     }
   }
 `;
@@ -199,6 +236,11 @@ function addMobileMenuButton() {
   
   if (!header || !navList) return;
 
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'mobile-menu-overlay';
+  document.body.appendChild(overlay);
+
   const menuButton = document.createElement('button');
   menuButton.className = 'mobile-menu-button';
   menuButton.innerHTML = `
@@ -209,12 +251,20 @@ function addMobileMenuButton() {
     </svg>
   `;
 
+  // Toggle menu and overlay
   menuButton.addEventListener('click', () => {
     navList.classList.toggle('mobile-active');
+    overlay.classList.toggle('active');
   });
 
-  // Insert before the first child of header
-  header.insertBefore(menuButton, header.firstChild);
+  // Close menu when clicking overlay
+  overlay.addEventListener('click', () => {
+    navList.classList.remove('mobile-active');
+    overlay.classList.remove('active');
+  });
+
+  // Insert button in header
+  header.appendChild(menuButton);
 }
 
 // Initialize mobile menu
@@ -232,8 +282,10 @@ if (document.readyState === 'loading') {
 // Handle window resize
 window.addEventListener('resize', () => {
   const navList = document.querySelector('.css-29qn50-AppHeaderNavList');
-  if (window.innerWidth > 768 && navList) {
-    navList.classList.remove('mobile-active');
+  const overlay = document.querySelector('.mobile-menu-overlay');
+  if (window.innerWidth > 768) {
+    if (navList) navList.classList.remove('mobile-active');
+    if (overlay) overlay.classList.remove('active');
   }
 });
    </script>
