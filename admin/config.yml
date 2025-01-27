@@ -1,10 +1,10 @@
 backend:
   # Use netlify identity as backend
-  # name: git-gateway
+  name: git-gateway
   branch: experimental
   ### enable below lines for github integration ###
-  name: github
-  repo: aislon/11tyDecapStarterTemplate
+  # name: github
+  # repo: aislon/11tyDecapStarterTemplate
 media_folder: "assets/img"        
 public_folder: "/static/img"
 site_url: http://localhost:8080/
