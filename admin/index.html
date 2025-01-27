@@ -96,167 +96,147 @@
       });
     </script>
 
-<script>
-// Wait for DOM and all resources to load
-window.addEventListener('load', function() {
-  // Check if main container exists before proceeding
-  const mainContainer = document.querySelector('.css-1fehwpo-AppMainContainer');
-  if (!mainContainer) return;
+   <script>
+    // Add responsive styles to head
+const responsiveStyles = document.createElement('style');
+responsiveStyles.textContent = `
+  /* Base responsive styles */
+  @media screen and (max-width: 768px) {
+    /* Prevent horizontal scroll */
+    body {
+      overflow-x: hidden;
+      width: 100%;
+    }
 
-  // Create mobile navigation toggle
-  const createMobileNav = () => {
-    const header = document.querySelector('.css-8zenuf-AppHeader-css');
-    const nav = document.querySelector('.css-29qn50-AppHeaderNavList');
-    
-    const toggle = document.createElement('button');
-    toggle.classList.add('mobile-nav-toggle');
-    toggle.innerHTML = '<span></span><span></span><span></span>';
-    header.insertBefore(toggle, nav);
+    /* Header modifications for mobile */
+    .css-8zenuf-AppHeader-css {
+      padding: 0.5rem;
+    }
 
-    toggle.addEventListener('click', () => {
-      nav.classList.toggle('nav-open');
-      toggle.classList.toggle('open');
-    });
-  };
-
-  // Enhanced responsive styles
-  const responsiveStyles = `
-    /* Mobile Navigation Toggle */
-    .mobile-nav-toggle {
-      display: none;
+    /* Make header content stack on mobile */
+    .css-y5bbau-AppHeaderContent {
       flex-direction: column;
-      gap: 6px;
-      background: transparent;
-      border: none;
-      padding: 8px;
-      z-index: 1000;
-    }
-    
-    .mobile-nav-toggle span {
-      width: 24px;
-      height: 2px;
-      background: currentColor;
-      transition: 0.3s;
+      gap: 1rem;
     }
 
-    /* Dashboard Layout */
-    @media screen and (max-width: 1024px) {
-      .css-pyxbz6-CollectionContainer {
-        flex-direction: column;
+    /* Adjust nav list for mobile */
+    .css-29qn50-AppHeaderNavList {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Show nav when active */
+    .css-29qn50-AppHeaderNavList.mobile-active {
+      display: flex;
+    }
+
+    /* Style nav items for mobile */
+    .css-29qn50-AppHeaderNavList li {
+      width: 100%;
+    }
+
+    .css-29qn50-AppHeaderNavList li a,
+    .css-29qn50-AppHeaderNavList li button {
+      width: 100%;
+      padding: 0.75rem;
+      justify-content: flex-start;
+    }
+
+    /* Adjust header actions for mobile */
+    .css-1xv22zz-AppHeaderActions {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    /* Main container adjustments */
+    .css-1fehwpo-AppMainContainer {
+      padding: 1rem;
+    }
+
+    /* Collection container modifications */
+    .css-pyxbz6-CollectionContainer {
+      flex-direction: column;
+    }
+
+    /* Sidebar adjustments */
+    .css-102us41-SidebarContainer-card-card {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    /* Add hamburger menu button */
+    .mobile-menu-button {
+      display: block;
+      padding: 0.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Hide menu button on desktop */
+    @media screen and (min-width: 769px) {
+      .mobile-menu-button {
+        display: none;
       }
       
-      .css-102us41-SidebarContainer-card-card {
-        width: 100%;
-        margin-bottom: 16px;
-      }
-    }
-
-    /* Tablet & Mobile Navigation */
-    @media screen and (max-width: 768px) {
-      .mobile-nav-toggle {
-        display: flex;
-      }
-
       .css-29qn50-AppHeaderNavList {
-        display: none;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        right: 0;
-        background: #fff;
-        padding: 16px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        flex-direction: column;
-      }
-
-      .nav-open {
         display: flex !important;
+        flex-direction: row;
       }
-
-      .css-y5bbau-AppHeaderContent {
-        padding: 8px 16px;
-      }
-
-      /* Dashboard Cards */
-      .css-1y2l20x-CardsGrid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        padding: 16px;
-      }
-
-      /* Form Elements */
-      input, select, textarea {
-        font-size: 16px !important;
-        max-width: 100%;
-      }
-    }
-
-    /* Small Mobile Devices */
-    @media screen and (max-width: 480px) {
-      .css-1fehwpo-AppMainContainer {
-        padding: 8px;
-      }
-
-      .css-j0g0ov-AppHeaderSiteLink {
-        font-size: 14px;
-      }
-
-      /* Touch-friendly buttons */
-      button, 
-      .css-b18hzq-AppHeaderNavLink-AppHeaderButton-button,
-      .css-xduxlj-AppHeaderButton-button {
-        min-height: 44px;
-        padding: 12px;
-      }
-    }
-
-    /* Mobile Menu Animation */
-    .mobile-nav-toggle.open span:nth-child(1) {
-      transform: rotate(45deg) translate(8px, 8px);
-    }
-    .mobile-nav-toggle.open span:nth-child(2) {
-      opacity: 0;
-    }
-    .mobile-nav-toggle.open span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
-  `;
-
-  // Inject styles
-  const styleElement = document.createElement('style');
-  styleElement.textContent = responsiveStyles;
-  document.head.appendChild(styleElement);
-
-  // Initialize mobile navigation
-  createMobileNav();
-
-  // Add touch gesture support
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-  document.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, {passive: true});
-
-  document.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }, {passive: true});
-
-  function handleSwipe() {
-    const swipeThreshold = 100;
-    const nav = document.querySelector('.css-29qn50-AppHeaderNavList');
-    
-    if (touchEndX - touchStartX > swipeThreshold) {
-      // Swipe right - open nav
-      nav.classList.add('nav-open');
-    } else if (touchStartX - touchEndX > swipeThreshold) {
-      // Swipe left - close nav
-      nav.classList.remove('nav-open');
     }
   }
+`;
+
+document.head.appendChild(responsiveStyles);
+
+// Create and add hamburger menu button
+function addMobileMenuButton() {
+  const header = document.querySelector('.css-y5bbau-AppHeaderContent');
+  const navList = document.querySelector('.css-29qn50-AppHeaderNavList');
+  
+  if (!header || !navList) return;
+
+  const menuButton = document.createElement('button');
+  menuButton.className = 'mobile-menu-button';
+  menuButton.innerHTML = `
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  `;
+
+  menuButton.addEventListener('click', () => {
+    navList.classList.toggle('mobile-active');
+  });
+
+  // Insert before the first child of header
+  header.insertBefore(menuButton, header.firstChild);
+}
+
+// Initialize mobile menu
+function initMobileMenu() {
+  addMobileMenuButton();
+}
+
+// Run when DOM is loaded
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMobileMenu);
+} else {
+  initMobileMenu();
+}
+
+// Handle window resize
+window.addEventListener('resize', () => {
+  const navList = document.querySelector('.css-29qn50-AppHeaderNavList');
+  if (window.innerWidth > 768 && navList) {
+    navList.classList.remove('mobile-active');
+  }
 });
-</script>
+   </script>
 
     </body>
     </html>
