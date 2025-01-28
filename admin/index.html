@@ -86,8 +86,186 @@
     
         // Start observing the document for changes
         observer.observe(document.body, { childList: true, subtree: true });
-      }); -->
-    </script>
+      });
+    </script> -->
+
+
+    <!-- ciko buttons -->
+<!-- <script>
+document.addEventListener('DOMContentLoaded', function() {
+  function addAnalyticsButton() {
+    // Debug log
+    console.log('Attempting to add analytics button...');
+
+    const mainWrapper = document.querySelector('[class*="SidebarContainer"]');
+    
+    if (!mainWrapper) {
+      console.log('Main wrapper not found, retrying...');
+      return false;
+    }
+
+    if (document.querySelector('#analytics-button')) {
+      console.log('Analytics button already exists');
+      return true;
+    }
+
+    const analyticsWrapper = document.createElement('div');
+    analyticsWrapper.id = 'analytics-button';
+
+    // Set initial styles
+    analyticsWrapper.style.position = 'fixed';
+    analyticsWrapper.style.bottom = '0';
+    analyticsWrapper.style.left = '0';
+    analyticsWrapper.style.padding = '16px';
+    analyticsWrapper.style.zIndex = '-1';
+    analyticsWrapper.style.display = 'flex';
+    analyticsWrapper.style.flexDirection = 'column';
+    analyticsWrapper.style.gap = '8px';
+
+    // Set width based on screen size
+    function setWrapperWidth() {
+        if (window.innerWidth <= 768) {
+            analyticsWrapper.style.width = '100%';
+            analyticsWrapper.style.padding = '8px';
+        } else {
+            analyticsWrapper.style.width = '250px';
+            analyticsWrapper.style.padding = '16px';
+        }
+    }
+
+    // Set initial width
+    setWrapperWidth();
+
+    // Add resize listener
+    window.addEventListener('resize', setWrapperWidth);
+
+    analyticsWrapper.innerHTML = `
+      <button style="width: 100%; padding: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--primary-button-bg, #007bff); color: white; border: none; border-radius: 4px; cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 3v18h18V3H3zm7 14H6v-2h4v2zm0-4H6v-2h4v2zm0-4H6V7h4v2zm4 8h-2V7h2v10zm4 0h-2v-4h2v4zm0-6h-2V7h2v4z"/>
+        </svg>
+        Analytics
+      </button>
+
+      <button style="width: 100%; padding: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--primary-button-bg, #007bff); color: white; border: none; border-radius: 4px; cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+        </svg>
+        Settings
+      </button>
+    `;
+
+    document.body.appendChild(analyticsWrapper);
+    console.log('Buttons added successfully');
+    return true;
+  }
+
+  // Retry mechanism
+  let attempts = 0;
+  const maxAttempts = 10;
+  
+  function tryAddButton() {
+    if (attempts >= maxAttempts) return;
+    
+    if (!addAnalyticsButton()) {
+      attempts++;
+      setTimeout(tryAddButton, 1000);
+    }
+  }
+
+  // Start attempting to add button
+  tryAddButton();
+});
+</script> -->
+
+
+<script>document.addEventListener('DOMContentLoaded', function() {
+  function injectSidebarButtons() {
+    const sidebarNav = document.querySelector('.css-kxvohc-SidebarNavList');
+    
+    if (!sidebarNav) {
+      console.log('Sidebar nav not found, retrying...');
+      return false;
+    }
+
+    if (document.querySelector('#custom-section')) {
+      return true;
+    }
+
+    // Create custom section container
+    const customSection = document.createElement('div');
+    customSection.id = 'custom-section';
+    customSection.style.marginBottom = '20px';
+    customSection.style.borderBottom = '2px solid #e6e6e6';
+    customSection.style.paddingBottom = '20px';
+
+    // Create navigation container with proper styling
+    const customNav = document.createElement('ul');
+    customNav.className = 'css-kxvohc-SidebarNavList';
+    customNav.style.width = '100%';
+
+    // Create Analytics button with matching CMS styling
+    const analyticsButton = document.createElement('li');
+    analyticsButton.innerHTML = `
+      <a href="/analytics" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="width: 100%; padding: 8px 12px; display: flex; align-items: center; font-size: 14px; color: rgb(68, 68, 68); text-decoration: none;">
+        <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M3 3v18h18V3H3zm7 14H6v-2h4v2zm0-4H6v-2h4v2zm0-4H6V7h4v2zm4 8h-2V7h2v10zm4 0h-2v-4h2v4zm0-6h-2V7h2v4z"/>
+          </svg>
+        </span>
+        <span style="flex: 1;">Analytics</span>
+      </a>`;
+
+    // Create Site Info button with matching CMS styling
+    const siteInfoButton = document.createElement('li');
+    siteInfoButton.innerHTML = `
+      <a href="/site-info" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="width: 100%; padding: 8px 12px; display: flex; align-items: center; font-size: 14px; color: rgb(68, 68, 68); text-decoration: none;">
+        <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+        </span>
+        <span style="flex: 1;">Site Info</span>
+      </a>`;
+
+    // Add section heading with CMS styling
+    const sectionHeading = document.createElement('h2');
+    sectionHeading.className = 'css-181cswj-SidebarHeading';
+    sectionHeading.textContent = 'Site Management';
+    sectionHeading.style.fontSize = '13px';
+    sectionHeading.style.textTransform = 'uppercase';
+    sectionHeading.style.fontWeight = '500';
+    sectionHeading.style.color = '#798291';
+    sectionHeading.style.padding = '0 12px';
+    
+    // Assemble section
+    customNav.appendChild(analyticsButton);
+    customNav.appendChild(siteInfoButton);
+    customSection.appendChild(sectionHeading);
+    customSection.appendChild(customNav);
+
+    // Insert at the beginning of sidebar
+    sidebarNav.parentNode.insertBefore(customSection, sidebarNav.parentNode.firstChild);
+
+    return true;
+  }
+
+  let attempts = 0;
+  const maxAttempts = 10;
+
+  function tryInjectButtons() {
+    if (attempts >= maxAttempts) return;
+    
+    if (!injectSidebarButtons()) {
+      attempts++;
+      setTimeout(tryInjectButtons, 1000);
+    }
+  }
+
+  tryInjectButtons();
+});
+</script>
+
 
 <!-- <link href="mobile-overrides.css" rel="stylesheet" /> -->
 
