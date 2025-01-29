@@ -8,7 +8,7 @@ backend:
 media_folder: "assets/img"        
 public_folder: "/static/img"
 site_url: http://localhost:8080/
-logo_url: /admin/aislonLogo.png
+logo_url: /admin/media/aislonLogo.png
 
 # Please run "npx netlify-cms-proxy-server" for local backend
 local_backend: true
