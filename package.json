@@ -2,9 +2,10 @@
   "name": "11tydecapstartertemplate",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx eleventy --serve"
+"scripts": {
+    "start": "npx eleventy --serve",
+    "build": "npx eleventy",
+    "offline": "npx neltify-cms-proxy-server"
   },
   "author": "",
   "license": "ISC",

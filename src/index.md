@@ -1,1 +1,3 @@
-# Kristi Ciko
+---
+layout: layouts/index.njk
+---

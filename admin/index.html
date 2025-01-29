@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Aislon Web Manager</title>
+    <style>
+     
+
+      .analytics-link:hover {
+        color: rgb(58, 105, 199);
+      }
+      
+      .analytics-link:hover .analytiscIcon svg path {
+        stroke: rgb(58, 105, 199);
+        transition: stroke 0.2s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Include the script that builds the page and powers Decap CMS -->
+     <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>  -->
+  
+    <script src="decap-cms.js"></script>
+
+    <!-- <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
+       <script src="netlify-identity-widget.js"></script>
+
+        <!-- Script for accepting netlify auth link callbacks? -->
+       <script>
+        // Initialize Netlify Identity
+        if (window.netlifyIdentity) {
+          window.netlifyIdentity.on("init", user => {
+            if (!user) {
+              window.netlifyIdentity.on("login", () => {
+                document.location.href = "/admin/";
+              });
+            }
+          });
+  
+          // Handle redirect after email confirmation
+          window.netlifyIdentity.on("error", err => console.error("Netlify Identity error:", err));
+          window.netlifyIdentity.on("login", () => {
+            console.log("Logged in successfully");
+            window.location.href = "/admin/#/";
+          });
+          window.netlifyIdentity.on("logout", () => {
+            console.log("Logged out");
+            window.location.href = "/";
+          });
+        }
+      </script>
+
+
+    <!-- Navbar Analytics Button -->
+    <!-- <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Function to create and insert the new button
+        function addAnalyticsButton() {
+          // Check if the button already exists
+          if (document.querySelector('.analytics-button')) return;
+    
+          var newButton = document.createElement('li');
+          newButton.classList.add('analytics-button');
+          newButton.innerHTML = '<a class="css-b18hzq-AppHeaderNavLink-AppHeaderButton-button-button-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-AppHeaderButton-AppHeaderButton e1rbzf6g5" href="https://aislon.com/web/analytics.html" target="_blank"><span class="e1jeq5dr0 css-5nxuzj-IconWrapper e1jeq5dr1"><svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path  d="m4 19 3.754-7.508a1 1 0 0 1 .55-.492q1.214-.445 1.46.29l1.355 4.067a1 1 0 0 0 .475.565q1.14.611 1.486-.081L18 6m-5 .464 4.277-1.146a1 1 0 0 1 .482-.01q.839.193.964.658l1.205 4.498" stroke="currentColor" stroke-width="2"/></svg></span>Analytics</a>';
+    
+          var navbar = document.querySelector('.css-29qn50-AppHeaderNavList.e1rbzf6g0');
+          if (navbar) {
+            navbar.appendChild(newButton);
+          }
+        }
+    
+        // Create a MutationObserver to watch for the navbar
+        var observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length) {
+              var navbar = document.querySelector('.css-29qn50-AppHeaderNavList.e1rbzf6g0');
+              if (navbar) {
+                addAnalyticsButton();
+                observer.disconnect(); // Stop observing once the button is added
+              }
+            }
+          });
+        });
+    
+        // Start observing the document for changes
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+    </script> -->
+
+
+    <!-- ciko buttons -->
+<!-- <script>
+document.addEventListener('DOMContentLoaded', function() {
+  function addAnalyticsButton() {
+    // Debug log
+    console.log('Attempting to add analytics button...');
+
+    const mainWrapper = document.querySelector('[class*="SidebarContainer"]');
+    
+    if (!mainWrapper) {
+      console.log('Main wrapper not found, retrying...');
+      return false;
+    }
+
+    if (document.querySelector('#analytics-button')) {
+      console.log('Analytics button already exists');
+      return true;
+    }
+
+    const analyticsWrapper = document.createElement('div');
+    analyticsWrapper.id = 'analytics-button';
+
+    // Set initial styles
+    analyticsWrapper.style.position = 'fixed';
+    analyticsWrapper.style.bottom = '0';
+    analyticsWrapper.style.left = '0';
+    analyticsWrapper.style.padding = '16px';
+    analyticsWrapper.style.zIndex = '-1';
+    analyticsWrapper.style.display = 'flex';
+    analyticsWrapper.style.flexDirection = 'column';
+    analyticsWrapper.style.gap = '8px';
+
+    // Set width based on screen size
+    function setWrapperWidth() {
+        if (window.innerWidth <= 768) {
+            analyticsWrapper.style.width = '100%';
+            analyticsWrapper.style.padding = '8px';
+        } else {
+            analyticsWrapper.style.width = '250px';
+            analyticsWrapper.style.padding = '16px';
+        }
+    }
+
+    // Set initial width
+    setWrapperWidth();
+
+    // Add resize listener
+    window.addEventListener('resize', setWrapperWidth);
+
+    analyticsWrapper.innerHTML = `
+      <button style="width: 100%; padding: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--primary-button-bg, #007bff); color: white; border: none; border-radius: 4px; cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 3v18h18V3H3zm7 14H6v-2h4v2zm0-4H6v-2h4v2zm0-4H6V7h4v2zm4 8h-2V7h2v10zm4 0h-2v-4h2v4zm0-6h-2V7h2v4z"/>
+        </svg>
+        Analytics
+      </button>
+
+      <button style="width: 100%; padding: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--primary-button-bg, #007bff); color: white; border: none; border-radius: 4px; cursor: pointer;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+        </svg>
+        Settings
+      </button>
+    `;
+
+    document.body.appendChild(analyticsWrapper);
+    console.log('Buttons added successfully');
+    return true;
+  }
+
+  // Retry mechanism
+  let attempts = 0;
+  const maxAttempts = 10;
+  
+  function tryAddButton() {
+    if (attempts >= maxAttempts) return;
+    
+    if (!addAnalyticsButton()) {
+      attempts++;
+      setTimeout(tryAddButton, 1000);
+    }
+  }
+
+  // Start attempting to add button
+  tryAddButton();
+});
+</script> -->
+
+
+<script>document.addEventListener('DOMContentLoaded', function() {
+  function injectSidebarButtons() {
+    const sidebarNav = document.querySelector('.css-kxvohc-SidebarNavList');
+    
+    if (!sidebarNav) {
+      console.log('Sidebar nav not found, retrying...');
+      return false;
+    }
+
+    if (document.querySelector('#custom-section')) {
+      return true;
+    }
+
+    // Create custom section container
+    const customSection = document.createElement('div');
+    customSection.id = 'custom-section';
+    customSection.style.marginBottom = '20px';
+    customSection.style.borderBottom = '2px solid #e6e6e6';
+    customSection.style.paddingBottom = '20px';
+
+    // Create navigation container with proper styling
+    const customNav = document.createElement('ul');
+    customNav.className = 'css-kxvohc-SidebarNavList';
+    customNav.style.width = '100%';
+
+    // Create Analytics button with matching CMS styling
+    const analyticsButton = document.createElement('li');
+    analyticsButton.innerHTML = `
+      <a href="/analytics" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="width: 100%; padding: 8px 12px; display: flex; align-items: center; font-size: 14px; color: rgb(68, 68, 68); text-decoration: none;">
+        <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M3 3v18h18V3H3zm7 14H6v-2h4v2zm0-4H6v-2h4v2zm0-4H6V7h4v2zm4 8h-2V7h2v10zm4 0h-2v-4h2v4zm0-6h-2V7h2v4z"/>
+          </svg>
+        </span>
+        <span style="flex: 1;">Analytics</span>
+      </a>`;
+
+    // Create Site Info button with matching CMS styling
+    const siteInfoButton = document.createElement('li');
+    siteInfoButton.innerHTML = `
+      <a href="/site-info" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="width: 100%; padding: 8px 12px; display: flex; align-items: center; font-size: 14px; color: rgb(68, 68, 68); text-decoration: none;">
+        <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+        </span>
+        <span style="flex: 1;">Site Info</span>
+      </a>`;
+
+    // Add section heading with CMS styling
+    const sectionHeading = document.createElement('h2');
+    sectionHeading.className = 'css-181cswj-SidebarHeading';
+    sectionHeading.textContent = 'Site Management';
+    sectionHeading.style.fontSize = '13px';
+    sectionHeading.style.textTransform = 'uppercase';
+    sectionHeading.style.fontWeight = '500';
+    sectionHeading.style.color = '#798291';
+    sectionHeading.style.padding = '0 12px';
+    
+    // Assemble section
+    customNav.appendChild(analyticsButton);
+    customNav.appendChild(siteInfoButton);
+    customSection.appendChild(sectionHeading);
+    customSection.appendChild(customNav);
+
+    // Insert at the beginning of sidebar
+    sidebarNav.parentNode.insertBefore(customSection, sidebarNav.parentNode.firstChild);
+
+    return true;
+  }
+
+  let attempts = 0;
+  const maxAttempts = 10;
+
+  function tryInjectButtons() {
+    if (attempts >= maxAttempts) return;
+    
+    if (!injectSidebarButtons()) {
+      attempts++;
+      setTimeout(tryInjectButtons, 1000);
+    }
+  }
+
+  tryInjectButtons();
+});
+</script>
+
+
+<!-- <link href="mobile-overrides.css" rel="stylesheet" /> -->
+
+<style>
+  /** Adapted By Mani Kumar (https://manikumar.in/blog/mobile-optimized-decap-netlify-cms/) From Source: https://gist.github.com/searls/7fd2c3223571a58a81006e7da66bd064 */
+@media (max-width: 799px) {
+    /* Bring Any Dropdown To Center Of Page */
+     [class*=DropdownList]{
+         position: fixed;
+         min-width: 20%;
+         width: 90%;
+         margin: auto;
+         height: fit-content;
+         top: auto;
+         left: 0;
+         right: 0;
+         bottom: 10px;
+         background: #e6f4fd;
+         border: 2px solid #3a69c7;
+    }
+    /* Add Overflow To Modal Window */
+     [class*=StyledModal]{
+         width: 90dvw;
+         width: 90%;
+    }
+     [class*=LibraryTitle]{
+         display: none;
+    }
+     [class*=CollectionTopNewButton]{
+         padding: 0px 10px !important;
+         height: auto;
+    }
+     [class*=LibraryTop]{
+         overflow-x: auto;
+         height: fit-content;
+         padding-bottom: 10px;
+    }
+    /* Hide Blog Post Title From Navbar */
+     [class*=BackCollection]{
+         display: none;
+    }
+    /* Add Padding To Control Pane */
+     [class*=ControlPaneContainer] {
+         padding: 0px 10px;
+    }
+    /* Rest As Per: Searl's Code*/
+     [class*=BackCollection], [class*=BackStatus] {
+         font-size: .6rem;
+    }
+     [class*=AppHeaderContent], [class*=AppMainContainer] {
+         margin-right: 0;
+         margin-left: 0;
+         min-width: calc(100vw - 24px);
+         max-width: 100vw;
+    }
+     [class*=AppHeaderContent] {
+         display: flex;
+         justify-content: space-between;
+    }
+     [class*=AppHeaderQuickNewButton] {
+         width: 100%;
+    }
+     [class*=AppHeaderButton] {
+         padding-left: 4px;
+         padding-right: 4px;
+    }
+     [class*=EditorContainer], [class*=ToolbarContainer] {
+         min-width: initial;
+         overflow-x: auto;
+    }
+     [class*=ToolbarSubSectionFirst] {
+         display: flex;
+         flex-direction: column;
+    }
+     [class*=PublishedToolbarButton] {
+         padding: 0 8px;
+    }
+     [class*=PublishedToolbarButton]::after {
+         display: none;
+    }
+     [class*=ToolbarSubSectionFirst] {
+         flex-direction: row;
+    }
+     [class*=SearchInput] {
+         margin-top: 5px;
+    }
+     [class*=ViewControls] {
+         position: initial;
+    }
+     [class*=PreviewPaneContainer-ControlPaneContainer] {
+         padding: 0;
+    }
+     [class*=ControlPaneContainer] {
+         max-width: 100vw;
+    }
+     [class*=EditorControlBar] [class*=ToolbarContainer] {
+         display: flex;
+         flex-direction: column;
+    }
+     [class*=CollectionContainer] {
+         display: flex;
+         flex-direction: column;
+    }
+     [class*=SidebarContainer] {
+         position: initial;
+         width: initial;
+    }
+     [class*=CollectionMain] {
+         padding-left: 0;
+         margin-top: 20px;
+    }
+}
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hithismani/responsive-decap@main/dist/responsive.min.css">
+
+    </body>
+    </html>
