@@ -53,132 +53,12 @@
       </script>
 
 
-    <!-- Navbar Analytics Button -->
-    <!-- <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Function to create and insert the new button
-        function addAnalyticsButton() {
-          // Check if the button already exists
-          if (document.querySelector('.analytics-button')) return;
-    
-          var newButton = document.createElement('li');
-          newButton.classList.add('analytics-button');
-          newButton.innerHTML = '<a class="css-b18hzq-AppHeaderNavLink-AppHeaderButton-button-button-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-buttonActive-AppHeaderButton-AppHeaderButton e1rbzf6g5" href="https://aislon.com/web/analytics.html" target="_blank"><span class="e1jeq5dr0 css-5nxuzj-IconWrapper e1jeq5dr1"><svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path  d="m4 19 3.754-7.508a1 1 0 0 1 .55-.492q1.214-.445 1.46.29l1.355 4.067a1 1 0 0 0 .475.565q1.14.611 1.486-.081L18 6m-5 .464 4.277-1.146a1 1 0 0 1 .482-.01q.839.193.964.658l1.205 4.498" stroke="currentColor" stroke-width="2"/></svg></span>Analytics</a>';
-    
-          var navbar = document.querySelector('.css-29qn50-AppHeaderNavList.e1rbzf6g0');
-          if (navbar) {
-            navbar.appendChild(newButton);
-          }
-        }
-    
-        // Create a MutationObserver to watch for the navbar
-        var observer = new MutationObserver(function(mutations) {
-          mutations.forEach(function(mutation) {
-            if (mutation.addedNodes.length) {
-              var navbar = document.querySelector('.css-29qn50-AppHeaderNavList.e1rbzf6g0');
-              if (navbar) {
-                addAnalyticsButton();
-                observer.disconnect(); // Stop observing once the button is added
-              }
-            }
-          });
-        });
-    
-        // Start observing the document for changes
-        observer.observe(document.body, { childList: true, subtree: true });
-      });
-    </script> -->
+   
 
 
-    <!-- ciko buttons -->
-<!-- <script>
-document.addEventListener('DOMContentLoaded', function() {
-  function addAnalyticsButton() {
-    // Debug log
-    console.log('Attempting to add analytics button...');
-
-    const mainWrapper = document.querySelector('[class*="SidebarContainer"]');
-    
-    if (!mainWrapper) {
-      console.log('Main wrapper not found, retrying...');
-      return false;
-    }
-
-    if (document.querySelector('#analytics-button')) {
-      console.log('Analytics button already exists');
-      return true;
-    }
-
-    const analyticsWrapper = document.createElement('div');
-    analyticsWrapper.id = 'analytics-button';
-
-    // Set initial styles
-    analyticsWrapper.style.position = 'fixed';
-    analyticsWrapper.style.bottom = '0';
-    analyticsWrapper.style.left = '0';
-    analyticsWrapper.style.padding = '16px';
-    analyticsWrapper.style.zIndex = '-1';
-    analyticsWrapper.style.display = 'flex';
-    analyticsWrapper.style.flexDirection = 'column';
-    analyticsWrapper.style.gap = '8px';
-
-    // Set width based on screen size
-    function setWrapperWidth() {
-        if (window.innerWidth <= 768) {
-            analyticsWrapper.style.width = '100%';
-            analyticsWrapper.style.padding = '8px';
-        } else {
-            analyticsWrapper.style.width = '250px';
-            analyticsWrapper.style.padding = '16px';
-        }
-    }
-
-    // Set initial width
-    setWrapperWidth();
-
-    // Add resize listener
-    window.addEventListener('resize', setWrapperWidth);
-
-    analyticsWrapper.innerHTML = `
-      <button style="width: 100%; padding: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--primary-button-bg, #007bff); color: white; border: none; border-radius: 4px; cursor: pointer;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M3 3v18h18V3H3zm7 14H6v-2h4v2zm0-4H6v-2h4v2zm0-4H6V7h4v2zm4 8h-2V7h2v10zm4 0h-2v-4h2v4zm0-6h-2V7h2v4z"/>
-        </svg>
-        Analytics
-      </button>
-
-      <button style="width: 100%; padding: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; background: var(--primary-button-bg, #007bff); color: white; border: none; border-radius: 4px; cursor: pointer;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
-        </svg>
-        Settings
-      </button>
-    `;
-
-    document.body.appendChild(analyticsWrapper);
-    console.log('Buttons added successfully');
-    return true;
-  }
-
-  // Retry mechanism
-  let attempts = 0;
-  const maxAttempts = 10;
-  
-  function tryAddButton() {
-    if (attempts >= maxAttempts) return;
-    
-    if (!addAnalyticsButton()) {
-      attempts++;
-      setTimeout(tryAddButton, 1000);
-    }
-  }
-
-  // Start attempting to add button
-  tryAddButton();
-});
-</script> -->
 
 
+    <!-- Custom script to inject sidebar buttons -->
 <script>document.addEventListener('DOMContentLoaded', function() {
   function injectSidebarButtons() {
     const sidebarNav = document.querySelector('.css-kxvohc-SidebarNavList');
@@ -195,19 +75,38 @@ document.addEventListener('DOMContentLoaded', function() {
     // Create custom section container
     const customSection = document.createElement('div');
     customSection.id = 'custom-section';
-    customSection.style.marginBottom = '20px';
-    customSection.style.borderBottom = '2px solid #e6e6e6';
-    customSection.style.paddingBottom = '20px';
+    customSection.style.marginBottom = '12px';
+    customSection.style.paddingBottom = '12px';
+    customSection.style.width = '100%';
+    customSection.style.display = 'flex';
 
     // Create navigation container with proper styling
     const customNav = document.createElement('ul');
     customNav.className = 'css-kxvohc-SidebarNavList';
     customNav.style.width = '100%';
+    customNav.style.display = 'flex';
+    customNav.style.gap = '8px';
+    customNav.style.padding = '0 12px';
+    customNav.style.margin = '0';
+    customNav.style.listStyle = 'none';
 
     // Create Analytics button with matching CMS styling
     const analyticsButton = document.createElement('li');
+    analyticsButton.style.flex = '1';
     analyticsButton.innerHTML = `
-      <a href="/analytics" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="width: 100%; padding: 8px 12px; display: flex; align-items: center; font-size: 14px; color: rgb(68, 68, 68); text-decoration: none;">
+      <a href="/analytics" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="
+        width: 100%;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #000;
+        text-decoration: none;
+        background-color: #f5f5f5;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        height: 100%;
+      ">
         <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path fill="currentColor" d="M3 3v18h18V3H3zm7 14H6v-2h4v2zm0-4H6v-2h4v2zm0-4H6V7h4v2zm4 8h-2V7h2v10zm4 0h-2v-4h2v4zm0-6h-2V7h2v4z"/>
@@ -218,30 +117,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Create Site Info button with matching CMS styling
     const siteInfoButton = document.createElement('li');
+    siteInfoButton.style.flex = '1';
     siteInfoButton.innerHTML = `
-      <a href="/site-info" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="width: 100%; padding: 8px 12px; display: flex; align-items: center; font-size: 14px; color: rgb(68, 68, 68); text-decoration: none;">
+      <a href="/site-info" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="
+        width: 100%;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #000;
+        text-decoration: none;
+        background-color: #f5f5f5;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        height: 100%;
+      ">
         <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
           </svg>
         </span>
-        <span style="flex: 1;">Site Info</span>
+        <span style="flex: 1;">Info</span>
       </a>`;
 
-    // Add section heading with CMS styling
-    const sectionHeading = document.createElement('h2');
-    sectionHeading.className = 'css-181cswj-SidebarHeading';
-    sectionHeading.textContent = 'Site Management';
-    sectionHeading.style.fontSize = '13px';
-    sectionHeading.style.textTransform = 'uppercase';
-    sectionHeading.style.fontWeight = '500';
-    sectionHeading.style.color = '#798291';
-    sectionHeading.style.padding = '0 12px';
-    
+    // Add hover effect with JavaScript
+    [analyticsButton, siteInfoButton].forEach(button => {
+      const link = button.querySelector('a');
+      link.addEventListener('mouseenter', () => {
+        link.style.backgroundColor = '#e9e9e9';
+      });
+      link.addEventListener('mouseleave', () => {
+        link.style.backgroundColor = '#f5f5f5';
+      });
+    });
+
     // Assemble section
     customNav.appendChild(analyticsButton);
     customNav.appendChild(siteInfoButton);
-    customSection.appendChild(sectionHeading);
     customSection.appendChild(customNav);
 
     // Insert at the beginning of sidebar
