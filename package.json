@@ -5,7 +5,7 @@
 "scripts": {
     "start": "npx eleventy --serve",
     "build": "npx eleventy",
-    "offline": "npx neltify-cms-proxy-server"
+    "offline": "npx netlify-cms-proxy-server"
   },
   "author": "",
   "license": "ISC",

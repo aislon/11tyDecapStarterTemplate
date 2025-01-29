@@ -39,8 +39,8 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.setLibrary("md", markdownIt(options));
 
     // Items collection
-    eleventyConfig.addCollection("items", function(collection) {
-        return collection.getFilteredByGlob("src/items/*.md").sort((a, b) => {
+    eleventyConfig.addCollection("products", function(collection) {
+        return collection.getFilteredByGlob("src/products/*.md").sort((a, b) => {
             return a.date - b.date;
         });
     });

@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html data-bs-theme="light">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Smartphone | Technophone</title>
+    <meta name="description" content="Smartphone te te gjitha llojeve nga brande zyrtare, transport ne te gjithe Shqiperine brenda 48 oresh. Porosit dhe apliko per blerje me keshte online.">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/shopping-bag.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/shopping-bag%20(1).png">
+    <link rel="icon" type="image/png" sizes="128x128" href="/assets/img/shopping-bag%20(2).png">
+    <link rel="icon" type="image/png" sizes="128x128" href="/assets/img/shopping-bag%20(2).png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/shopping-bag%20(4).png">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/ABeeZee.css">
+    <link rel="stylesheet" href="/assets/css/Bebas%20Neue.css">
+    <link rel="stylesheet" href="/assets/css/Gilroy.css">
+    <link rel="stylesheet" href="/assets/css/GilroyBold.css">
+    <link rel="stylesheet" href="/assets/css/Poppins.css">
+    <link rel="stylesheet" href="/assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="/assets/css/adaptive-em.compiled.css">
+    <link rel="stylesheet" href="/assets/css/Contact-Form-Clean.css">
+    <link rel="stylesheet" href="/assets/css/generator.css">
+    <link rel="stylesheet" href="/assets/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="/assets/css/scrollbar.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+<html lang="sq">
+</head>
+
+<body><script>
+
+console.log("%cDLAB DESIGNS", "color:green; font-size: 2em; font-weight: bold");
+console.log("%cReport Bugs at contact@samuelbushi.com", "color:green; font-size: 1.2em");
+console.log("%cv0.7 - Biased Build.", "color:green; font-size: 0.8em font-weight: bold");
+
+
+     var origin = new URLSearchParams(window.location.search).get("id");
+     fetch("/assets/js/db.json")
+.then(function (response) {
+  return response.json();
+})
+.then(function (data) {
+    document.title = data[origin].produkt + "| Technophone";
+    document.getElementById("productphoto").src = data[origin].fotoja;
+    document.getElementById("pricep").innerHTML = data[origin].cmimi+ "L";
+    document.getElementById("phoneversion").innerHTML = data[origin].versioni;
+   // document.getElementById("emrizz").innerHTML = data[origin].brand+ " " + data[origin].produkt;
+    document.getElementById("descriptionsat").innerHTML = data[origin].pershkrimi;
+    document.getElementById("ekrani").innerHTML = data[origin].ekrani +"";
+    document.getElementById("kamera").innerHTML = data[origin].kamera +"MP";
+    document.getElementById("bateria").innerHTML = data[origin].bateria +"mAh";
+    document.getElementById("sku").innerHTML = "SKU: Technophone"+origin;
+    document.getElementById("gjendja").innerHTML = "Gjendja: "+data[origin].gjendja;
+
+    document.getElementById("porosia").href = "porosite.html?origin="+origin;
+    document.getElementById("blimekeste").href = "keste.html?origin="+origin;
+
+})
+
+</script>
+    <div id="headertext">
+        <h1 class="text-center d-xl-flex justify-content-xl-center align-items-xl-center" style="font-family: 'Bebas Neue';font-size: 1.8em;color: rgb(0,37,237);margin-top: 0.5em;"><strong>TECHNOPHONE</strong></h1>
+    </div>
+    <header>
+        <nav class="navbar navbar-expand-md sticky-top navigation-clean-button navbar-light" style="font-family: GilroyBold;">
+            <div class="container-fluid"><a class="navbar-brand" href="/" style="color: rgb(0,37,237);font-family: 'Bebas Neue', cursive;font-size: 1.8em;margin-left: 4%;">TECHNOPHONE</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="navbar-nav me-auto"></ul><span class="navbar-text actions" style="margin-right: 4%;"> <a class="btn btn-primary shadow-lg hvr-grow" role="button" style="color: rgb(102,102,102);border-color: transparent;font-size: 1.1em;font-family: GilroyBold;border-radius: 0.25em;padding-top: 0.37em;padding-bottom: 0.37em;padding-right: 0.75em;padding-left: 0.75em;background: rgba(13,110,253,0);margin-right: 10px;" href="rreth-nesh.html">Rreth Nesh</a><a class="btn btn-primary shadow-lg hvr-grow" role="button" style="color: rgb(255,255,255);border-color: transparent;font-size: 1.1em;font-family: GilroyBold;border-radius: 0.25em;padding-top: 0.37em;padding-bottom: 0.37em;padding-right: 0.75em;padding-left: 0.75em;background: rgb(0,37,237);" href="kontakt.html">&nbsp;Kontakto&nbsp;<i class="far fa-paper-plane" style="font-size: 1em;margin-left: 0px;margin-top: 0px;"></i></a></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="d-table d-lg-flex d-xl-flex align-items-lg-start align-items-xl-start">
+        <div id="firsthalf">
+            <div class="d-flex d-xxl-flex justify-content-center align-items-center justify-content-xxl-center align-items-xxl-center"><img class="img-fluid" id="productphoto" src=""></div>
+            <div id="desktoponlya">
+                <div class="d-flex d-xxl-flex justify-content-center align-items-center justify-content-xxl-center align-items-xxl-center"></div>
+            </div>
+        </div>
+        <div id="secondhalf">
+            <div style="background-color: #ffffff;border-radius: 10px;margin-left: 3%;margin-right: 4%;margin-top: 4em;">
+                <div class="shadow-lg" style="background-color: #ffffff;padding: 4px;margin-bottom: 25px;border-radius: 8px;filter: blur(0px) hue-rotate(0deg) sepia(0%);margin-top: -20px;">
+                    <h1 id="emrizz" style="font-size: 2.25em;font-family: GilroyBold;margin-right: 15px;margin-left: 15px;margin-top: 15px;">{{productTitle}}</h1>
+                    <p id="descriptionsat" style="margin-left: 15px;margin-top: 14px;margin-right: 15px;font-family: ABeeZee, sans-serif;margin-bottom: 20px;font-weight: normal;font-style: normal;font-size: 1em;">Caricamento..<br></p>
+                </div>
+                <div class="shadow-lg d-flex d-xl-flex justify-content-center align-items-center align-content-center align-self-center flex-nowrap justify-content-xl-center align-items-xl-center" style="padding: 4px;background-color: #ffffff;border-radius: 8px;margin-top: 0px;">
+                    <div class="d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-start align-items-xl-center" style="margin-top: 7px;margin-bottom: 5px;margin-right: 2px;margin-left: 2px;"><i class="material-icons" style="margin-right: 0px;margin-left: 15px;font-size: 1.4em;">crop_square</i>
+                        <p id="ekrani" style="margin-left: 4px;margin-top: 1px;margin-right: 0px;font-family: GilroyBold;margin-bottom: 0px;font-size: 1em;">xx<br></p>
+                    </div>
+                    <div class="d-flex d-sm-flex d-xl-flex justify-content-center align-items-center justify-content-sm-start align-items-sm-center justify-content-xl-start align-items-xl-center" style="margin-top: 7px;margin-bottom: 5px;margin-right: 2px;margin-left: 2px;"><i class="material-icons" style="margin-right: 0px;margin-left: 15px;font-size: 1em;">camera</i>
+                        <p id="kamera" style="margin-left: 4px;margin-top: 1px;margin-right: 0px;font-family: GilroyBold;margin-bottom: 0px;">xxMP<br></p>
+                    </div>
+                    <div class="d-flex d-sm-flex d-xl-flex justify-content-center align-items-center justify-content-sm-start align-items-sm-center justify-content-xl-start align-items-xl-center" style="margin-top: 7px;margin-bottom: 5px;margin-right: 2px;margin-left: 2px;"><i class="material-icons" style="margin-right: 0px;margin-left: 15px;font-size: 1.4em;">battery_std</i>
+                        <p id="bateria" style="margin-left: 4px;margin-top: 1px;margin-right: 0px;font-family: GilroyBold;margin-bottom: 0px;font-size: 1em;">xxx<br></p>
+                    </div>
+                </div>
+                <div>
+                    <div style="margin-top: 0px;">
+                        <p style="margin-left: 15px;margin-top: 25px;margin-right: 15px;font-family: GilroyBold;margin-bottom: 12px;color: rgb(0,0,0);font-size: 1em;"><strong>NGJYRAT</strong>&nbsp;E DISPONUESHME:</p>
+                        <div class="d-flex d-xl-flex align-items-center align-items-xl-center" style="margin-bottom: 30px;">
+                            <div class="shadow-lg" style="margin-bottom: 0.5em;height: 2.5em;width: 2.5em;border-radius: 8px;margin-left: 0.5em;font-size: 1em;background: #a0aec0;"></div>
+                            <div class="shadow-lg" style="margin-bottom: 0.5em;height: 2.5em;width: 2.5em;border-radius: 8px;margin-left: 0.5em;font-size: 1em;background: #a0aec0;"></div>
+                            <div class="shadow-lg" style="margin-bottom: 0.5em;height: 2.5em;width: 2.5em;border-radius: 8px;margin-left: 0.5em;font-size: 1em;background: #a0aec0;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-left: 15px;">
+                        <p style="margin-left: 0px;margin-top: 0px;margin-right: 0px;font-family: GilroyBold;margin-bottom: 0px;font-size: 1em;">Versioni:<br></p>
+                        <p id="phoneversion" style="margin-left: 0px;margin-top: 0px;margin-right: 0px;font-family: ABeeZee, sans-serif;margin-bottom: 0px;font-weight: normal;font-style: normal;font-size: 1em;">Caricamento</p>
+                        <p id="gjendja" style="margin-left: 0px;margin-top: 0px;margin-right: 0px;font-family: ABeeZee, sans-serif;margin-bottom: 0px;font-weight: normal;font-style: normal;font-size: 1em;">Caricamento</p>
+                    </div>
+                </div>
+                <h1 id="pricep" style="margin-left: 15px;margin-top: 45px;font-family: GilroyBold;color: rgb(217,88,88);font-size: 2.5em;"><strong>Caricamento</strong></h1>
+                <p id="sku" style="margin-left: 15px;margin-bottom: 40px;color: rgb(99,99,99);font-size: 1em;">Caricamento..</p>
+                <div>
+                    <p style="margin-left: 15px;margin-top: 10px;color: rgb(147,147,147);font-size: 1em;">Transport ne te gjithe Shqiperine, fleta e garancise shoqerohet bashke me produktin.</p>
+                </div>
+                <div style="padding-bottom: 2em;margin-left: 15px;"><a class="btn btn-primary shadow-lg hvr-grow" role="button" id="porosia" style="color: rgb(255,255,255);border-color: transparent;font-size: 1.1em;font-family: GilroyBold;border-radius: 0.25em;padding-top: 0.37em;padding-bottom: 0.37em;padding-right: 0.75em;padding-left: 0.75em;background: rgb(0,37,237);margin-top: 0.4em;margin-left: 0px;margin-right: 0.6em;" href="/porosite.html?origin=galaxya02">&nbsp;Porosite&nbsp;&nbsp;<i class="fas fa-rocket" style="font-size: 1em;margin-left: 0px;margin-top: 0px;"></i></a><a class="btn btn-primary shadow-lg hvr-grow" role="button" id="blimekeste" style="color: rgb(255,255,255);border-color: transparent;font-size: 1.1em;font-family: GilroyBold;border-radius: 0.25em;padding-top: 0.37em;padding-bottom: 0.37em;padding-right: 0.75em;padding-left: 0.75em;background: rgb(255,85,106);margin-top: 0.4em;" href="/keste.html?origin=galaxya02">&nbsp;Bli me keste&nbsp;<i class="fas fa-rocket" style="font-size: 1em;margin-left: 0px;margin-top: 0px;"></i></a></div>
+            </div>
+        </div>
+    </div>
+    <footer style="margin-top: 1em;bottom: 0;">
+        <div style="background: #ffffff;opacity: 0.33;">
+            <p class="text-center" style="color: rgb(0,0,0);font-family: GilroyBold;font-size: 1em;margin-bottom: 0px;">TECHNOPHONE SQ</p>
+            <p class="text-center" style="color: rgb(51,51,51);font-family: ABeeZee, sans-serif;font-size: 0.8em;margin-bottom: 5px;">MANAGED BY <strong>DLAB DESIGNS</strong></p>
+        </div>
+    </footer>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/js/filter.js"></script>
+    <script src="/assets/js/iutecalculator.js"></script>
+    <script src="/assets/js/requirejs.js"></script>
+</body>
+
+</html>
