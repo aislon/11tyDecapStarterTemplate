@@ -14,6 +14,22 @@ logo_url: /admin/aislonLogo.png
 local_backend: true
 # publish_mode: editorial_workflow
 collections:
+- name: "products"
+  label: "Products"
+  folder: "src/products"
+  create: true
+  slug: "{{slug}}"
+  fields:
+    - { label: "Title", name: "productTitle", widget: "string" }
+    - { label: "Description", name: "description", widget: "text" }
+    - { label: "Featured Image", name: "image", widget: "image" }
+    - { label: "Price", name: "price", widget: "number" }
+    - { label: "Body", name: "body", widget: "markdown" }
+    - { label: "Tags", name: "tags", widget: "hidden", default: ["products"] }
+    - { label: "Layout", name: "layout", widget: "hidden", default: "layouts/product.njk" }
+  editor:
+    preview: true
+
 - label: "Home"
   name: "home"
   preview_path: "index.html"
@@ -52,4 +68,3 @@ collections:
             { label: "Description", name: "description", widget: "string", required: false }
           ]
         }
-
