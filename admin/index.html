@@ -22,7 +22,7 @@
     <!-- Include the script that builds the page and powers Decap CMS -->
      <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>  -->
   
-    <script src="decap-cms.js"></script>
+    <script src="https://aislon-cdn.pages.dev/cms/latest/aislon-decap-cms.js"></script> 
 
     <!-- <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
        <script src="netlify-identity-widget.js"></script>
@@ -59,7 +59,14 @@
 
 
     <!-- Custom script to inject sidebar buttons -->
-<script>document.addEventListener('DOMContentLoaded', function() {
+<script>
+
+let ANALYTICS_URL = '/analytics';
+let SIDE_ID = 'custom-section';
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
   function injectSidebarButtons() {
     const sidebarNav = document.querySelector('.css-kxvohc-SidebarNavList');
     
@@ -95,7 +102,7 @@
     const analyticsButton = document.createElement('li');
     analyticsButton.style.flex = '1';
     analyticsButton.innerHTML = `
-      <a href="/analytics" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="
+      <a href="`+ ANALYTICS_URL +`" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="
         width: 100%;
         padding: 10px 12px;
         display: flex;
