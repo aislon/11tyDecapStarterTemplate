@@ -1,0 +1,55 @@
+backend:
+  # Use netlify identity as backend
+  name: git-gateway
+  branch: experimental
+  ### enable below lines for github integration ###
+  # name: github
+  repo: aislon/11tyDecapStarterTemplate
+media_folder: "assets/img"        
+public_folder: "/static/img"
+site_url: http://localhost:8080/
+logo_url: /admin/media/aislonLogo.png
+
+# Please run "npx netlify-cms-proxy-server" for local backend
+local_backend: true
+# publish_mode: editorial_workflow
+collections:
+- label: "Home"
+  name: "home"
+  preview_path: "index.html"
+  editor:
+    preview: true
+  files:
+    - file: "src/index.md"
+      name: "home"
+      label: "Home Page"
+      fields:
+        - { label: "Title", name: "fusha", widget: "string", hint: "This is the main title of the homepage.", required: false }
+        - { label: "Description", name: "description", widget: "string", required: false }
+        - { label: "Hero Image", name: "hero_image", widget: "image", required: false }
+        - { label: "Hero Image Alt", name: "hero_image_alt", widget: "string", required: false }
+        - { label: "Hero Text", name: "hero_text", widget: "string", required: false }
+        - { label: "Hero Button Text", name: "hero_button_text", widget: "string", required: false }
+        - { label: "Hero Button URL", name: "hero_button_url", widget: "string", required: false }
+        - { label: "About Title", name: "about_title", widget: "string", required: false }
+        - { label: "About Description", name: "about_description", widget: "string", required: false }
+        - { label: "About Image", name: "about_image", widget: "image", required: false }
+        - { label: "About Image Alt", name: "about_image_alt", widget: "string", required: false }
+        - { label: "About Button Text", name: "about_button_text", widget: "string", required: false }
+        - { label: "About Button URL", name: "about_button_url", widget: "string", required: false }
+        - { label: "Services Title", name: "services_title", widget: "string", required: false }
+        - { label: "Services Description", name: "services_description", widget: "string", required: false }
+        - { label: "Services", name: "services", widget: "list", required: false, fields: [
+            { label: "Title", name: "title", widget: "string", required: false },
+            { label: "Description", name: "description", widget: "string", required: false },
+            { label: "Icon", name: "icon", widget: "string", required: false }
+          ]
+        }
+        - { label: "Portfolio Title", name: "portfolio_title", widget: "string", required: false }
+        - { label: "Portfolio Description", name: "portfolio_description", widget: "string", required: false }
+        - { label: "Portfolio", name: "portfolio", widget: "list", required: false, fields: [
+            { label: "Title", name: "title", widget: "string", required: false },
+            { label: "Description", name: "description", widget: "string", required: false }
+          ]
+        }
+
