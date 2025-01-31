@@ -303,5 +303,41 @@
 </style>
 
 
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const targetNode = document.body;
+      const config = { childList: true, subtree: true };
+
+      const callback = function(mutationsList, observer) {
+          for (const mutation of mutationsList) {
+              if (mutation.type === 'childList') {
+                  const iconWrapper = document.querySelector(".css-16ibyj6-IconWrapper-AvatarPlaceholderIcon-avatarImage");
+                  if (iconWrapper) {
+                      const img = document.createElement("img");
+                      img.src = "media/aislonHat.png"; // Replace with the path to your SVG image
+                      img.width = 22;
+                      img.height = 22;
+                      img.style.margin = "auto";
+                      img.style.display = "block";
+                      iconWrapper.style.display = "flex";
+                      iconWrapper.style.justifyContent = "center";
+                      iconWrapper.style.alignItems = "center";
+                      iconWrapper.innerHTML = "";
+                      iconWrapper.appendChild(img);
+                      observer.disconnect(); // Stop observing once the element is found and replaced
+                      break;
+                  }
+              }
+          }
+      };
+
+      const observer = new MutationObserver(callback);
+      observer.observe(targetNode, config);
+  });
+</script>
+
+
     </body>
     </html>

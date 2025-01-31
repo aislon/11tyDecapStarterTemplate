@@ -1,13 +1,13 @@
 backend:
   # Use netlify identity as backend
   name: git-gateway
-  branch: experimental
+  branch: main
   ### enable below lines for github integration ###
   # name: github
   repo: aislon/11tyDecapStarterTemplate
 media_folder: "assets/img"        
 public_folder: "/static/img"
-site_url: http://localhost:8080/
+site_url: https://cms.aislon.com/
 logo_url: /admin/media/aislonLogo.png
 
 # Please run "npx netlify-cms-proxy-server" for local backend
