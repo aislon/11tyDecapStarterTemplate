@@ -8,8 +8,14 @@
   </head>
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
+<<<<<<< HEAD
     <script src="https://aislon-cdn.pages.dev/cms/latest/aislon-decap-cms.js"></script> 
     <script src="netlify-identity-widget.js"></script>
+=======
+     <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>  -->
+  
+    <script src="decap-cms.js"></script>
+>>>>>>> parent of 5228fbe (CDN)
 
     <script>
       // Function to inject custom CSS and JS
@@ -60,6 +66,7 @@
     </script>
 
     <!-- Custom script to inject sidebar buttons -->
+<<<<<<< HEAD
     <script>
 
       let ANALYTICS_URL = '/analytics';
@@ -86,6 +93,16 @@
           customSection.style.paddingBottom = '8px';     // Reduced from 12px
           customSection.style.width = '100%';
           customSection.style.display = 'flex';
+=======
+<script>document.addEventListener('DOMContentLoaded', function() {
+  function injectSidebarButtons() {
+    const sidebarNav = document.querySelector('.css-kxvohc-SidebarNavList');
+    
+    if (!sidebarNav) {
+      console.log('Sidebar nav not found, retrying...');
+      return false;
+    }
+>>>>>>> parent of 5228fbe (CDN)
 
           // Create navigation container with proper styling
           const customNav = document.createElement('ul');
@@ -143,6 +160,7 @@
               <span style="flex: 1;">Site Info</span>
             </a>`;
 
+<<<<<<< HEAD
           // Add hover effect with JavaScript
           [analyticsButton, siteInfoButton].forEach(button => {
             const link = button.querySelector('a');
@@ -153,6 +171,30 @@
               link.style.backgroundColor = '#f5f5f5';
             });
           });
+=======
+    // Create Analytics button with matching CMS styling
+    const analyticsButton = document.createElement('li');
+    analyticsButton.style.flex = '1';
+    analyticsButton.innerHTML = `
+      <a href="/analytics" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="
+        width: 100%;
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #000;
+        text-decoration: none;
+        background-color: #f5f5f5;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        height: 100%;
+      ">
+        <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
+          <img src="/admin/media/analytic.svg" width="24" height="24" />
+        </span>
+        <span style="flex: 1;">Analytics</span>
+      </a>`;
+>>>>>>> parent of 5228fbe (CDN)
 
           // Assemble section
           customNav.appendChild(analyticsButton);
