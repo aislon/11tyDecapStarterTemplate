@@ -1,246 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://aislon-cdn.pages.dev https://identity.netlify.com; style-src 'self' 'unsafe-inline';" />
-    
     <title>Aislon Web Manager</title>
-    
     <style>
-      :root {
-        --primary-color: rgb(58, 105, 199);
-        --secondary-color: #f5f5f5;
-        --hover-color: #e9e9e9;
-        --text-color: #000;
+      .analytics-link:hover {
+        color: rgb(58, 105, 199);
       }
       
-      .persistent-button {
-        width: 100%;
-        padding: 10px 12px;
-        display: flex;
-        align-items: center;
-        font-size: 14px;
-        color: var(--text-color);
-        text-decoration: none;
-        background-color: var(--secondary-color);
-        border-radius: 6px;
-        transition: background-color 0.2s ease;
-        height: 100%;
-      }
-      
-      .persistent-button:hover {
-        background-color: var(--hover-color);
-      }
-      
-      .persistent-button:focus {
-        outline: 2px solid var(--primary-color);
-        outline-offset: 2px;
+      .analytics-link:hover .analytiscIcon svg path {
+        stroke: rgb(58, 105, 199);
+        transition: stroke 0.2s ease;
       }
     </style>
   </head>
   <body>
-    <noscript>
-      <div style="color: red; padding: 20px;">
-        JavaScript is required to use the Aislon Web Manager. Please enable JavaScript in your browser.
-      </div>
-    </noscript>
-
     <script src="https://aislon-cdn.pages.dev/cms/latest/aislon-decap-cms.js"></script> 
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="netlify-identity-widget.js"></script>
 
     <script>
-    // Configuration Object
-    const AISLON_CONFIG = {
-      debug: false,
-      urls: {
-        analytics: '/analytics',
-        siteInfo: '/site-info'
-      },
-      paths: {
-        analyticsIcon: '/admin/media/analytic.svg',
-        infoIcon: '/admin/media/info.svg',
-        avatarIcon: '/admin/media/aislonHat.png'
-      },
-      selectors: {
-        sidebarNav: '.css-kxvohc-SidebarNavList',
-        avatarIcon: '.css-16ibyj6-IconWrapper-AvatarPlaceholderIcon-avatarImage'
-      }
-    };
-
-    // Utility Functions
-    const log = (message, type = 'log') => {
-      if (AISLON_CONFIG.debug) {
-        console[type](`[Aislon CMS]: ${message}`);
-      }
-    };
-
-    const debounce = (func, delay) => {
-      let timeoutId;
-      return (...args) => {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => func.apply(this, args), delay);
-      };
-    };
-
-    const sanitizeHTML = (str) => {
-      const temp = document.createElement('div');
-      temp.textContent = str;
-      return temp.innerHTML;
-    };
-
-    // Netlify Identity Management
-    const setupNetlifyIdentity = () => {
-      if (!window.netlifyIdentity) {
-        log('Netlify Identity not loaded', 'error');
-        return;
-      }
-
+    // Initialize Netlify Identity
+    if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", user => {
-        log(`User initialization: ${user ? user.email : 'Not logged in'}`);
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
       });
 
+      window.netlifyIdentity.on("error", err => console.error("Netlify Identity error:", err));
       window.netlifyIdentity.on("login", () => {
-        log('Login successful');
+        console.log("Logged in successfully");
         window.location.href = "/admin/#/";
       });
-
       window.netlifyIdentity.on("logout", () => {
-        log('Logout successful');
+        console.log("Logged out");
         window.location.href = "/";
       });
+    }
+    </script>
 
-      window.netlifyIdentity.on("error", err => {
-        log(`Identity error: ${err}`, 'error');
-      });
-    };
+    <script>
+    let ANALYTICS_URL = '/analytics';
+    let SIDE_ID = 'custom-section';
 
-    // Custom Buttons Creation
-    const createCustomButtons = () => {
+    // Persistent custom buttons function
+    function createCustomButtons() {
+      // Create custom section container
       const customSection = document.createElement('div');
       customSection.id = 'custom-section';
-      Object.assign(customSection.style, {
-        marginTop: '8px',
-        marginBottom: '8px',
-        paddingBottom: '8px',
-        width: '100%',
-        display: 'flex'
-      });
+      customSection.style.marginTop = '8px';
+      customSection.style.marginBottom = '8px';
+      customSection.style.paddingBottom = '8px';
+      customSection.style.width = '100%';
+      customSection.style.display = 'flex';
 
+      // Create navigation container with proper styling
       const customNav = document.createElement('ul');
       customNav.className = 'css-kxvohc-SidebarNavList persistent-nav';
-      Object.assign(customNav.style, {
-        width: '100%',
-        display: 'flex',
-        gap: '8px',
-        padding: '0 12px',
-        margin: '0',
-        listStyle: 'none'
+      customNav.style.width = '100%';
+      customNav.style.display = 'flex';
+      customNav.style.gap = '8px';
+      customNav.style.padding = '0 12px';
+      customNav.style.margin = '0';
+      customNav.style.listStyle = 'none';
+
+      // Create Analytics button
+      const analyticsButton = document.createElement('li');
+      analyticsButton.style.flex = '1';
+      analyticsButton.innerHTML = `
+        <a href="${ANALYTICS_URL}" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="
+          width: 100%;
+          padding: 10px 12px;
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          color: #000;
+          text-decoration: none;
+          background-color: #f5f5f5;
+          border-radius: 6px;
+          transition: all 0.2s ease;
+          height: 100%;
+        ">
+          <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
+            <img src="/admin/media/analytic.svg" width="24" height="24" />
+          </span>
+          <span style="flex: 1;">Analytics</span>
+        </a>`;
+
+      // Create Site Info button
+      const siteInfoButton = document.createElement('li');
+      siteInfoButton.style.flex = '1';
+      siteInfoButton.innerHTML = `
+        <a href="/site-info" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="
+          width: 100%;
+          padding: 6px 12px;
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          color: #000;
+          text-decoration: none;
+          background-color: #f5f5f5;
+          border-radius: 6px;
+          transition: all 0.2s ease;
+          height: 100%;
+        ">
+          <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
+            <img src="/admin/media/info.svg" width="24" height="24" />
+          </span>
+          <span style="flex: 1;">Site Info</span>
+        </a>`;
+
+      // Add hover effects
+      [analyticsButton, siteInfoButton].forEach(button => {
+        const link = button.querySelector('a');
+        link.addEventListener('mouseenter', () => {
+          link.style.backgroundColor = '#e9e9e9';
+        });
+        link.addEventListener('mouseleave', () => {
+          link.style.backgroundColor = '#f5f5f5';
+        });
       });
 
-      const buttonConfigs = [
-        {
-          url: AISLON_CONFIG.urls.analytics,
-          icon: AISLON_CONFIG.paths.analyticsIcon,
-          text: 'Analytics',
-          ariaLabel: 'Open Analytics Dashboard'
-        },
-        {
-          url: AISLON_CONFIG.urls.siteInfo,
-          icon: AISLON_CONFIG.paths.infoIcon,
-          text: 'Site Info',
-          ariaLabel: 'View Site Information'
-        }
-      ];
-
-      buttonConfigs.forEach(config => {
-        const button = document.createElement('li');
-        button.style.flex = '1';
-        button.innerHTML = `
-          <a 
-            href="${sanitizeHTML(config.url)}" 
-            class="persistent-button" 
-            aria-label="${sanitizeHTML(config.ariaLabel)}"
-          >
-            <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
-              <img src="${sanitizeHTML(config.icon)}" width="24" height="24" alt="" />
-            </span>
-            <span style="flex: 1;">${sanitizeHTML(config.text)}</span>
-          </a>`;
-        
-        customNav.appendChild(button);
-      });
-
+      // Assemble section
+      customNav.appendChild(analyticsButton);
+      customNav.appendChild(siteInfoButton);
       customSection.appendChild(customNav);
-      return customSection;
-    };
 
-    // Persistent Injection Management
-    const setupPersistentButtonInjection = () => {
-      const debouncedInject = debounce(() => {
-        const sidebarNav = document.querySelector(AISLON_CONFIG.selectors.sidebarNav);
-        const existingNav = document.querySelector('.persistent-nav');
-        
-        if (sidebarNav && !existingNav) {
-          const customSection = createCustomButtons();
-          try {
+      return customSection;
+    }
+
+    // Mutation observer to persistently inject buttons
+    function setupPersistentButtonInjection() {
+      const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+          const sidebarNav = document.querySelector('.css-kxvohc-SidebarNavList');
+          
+          // Check if existing persistent nav already exists
+          if (sidebarNav && !document.querySelector('.persistent-nav')) {
+            const customSection = createCustomButtons();
             sidebarNav.parentNode.insertBefore(customSection, sidebarNav.parentNode.firstChild);
-            log('Custom buttons successfully injected');
-          } catch (error) {
-            log(`Injection failed: ${error}`, 'error');
           }
         }
-      }, 250);
+      });
 
-      const observer = new MutationObserver(debouncedInject);
+      // Start observing the sidebar
       observer.observe(document.body, { 
         childList: true, 
         subtree: true 
       });
-    };
+    }
 
-    // Avatar Replacement
-    const replaceAvatarIcon = () => {
-      const debouncedReplace = debounce(() => {
-        const iconWrapper = document.querySelector(AISLON_CONFIG.selectors.avatarIcon);
-        if (iconWrapper) {
-          try {
+    // Avatar replacement script
+    function replaceAvatarIcon() {
+      const observer = new MutationObserver((mutationsList) => {
+        for (const mutation of mutationsList) {
+          const iconWrapper = document.querySelector(".css-16ibyj6-IconWrapper-AvatarPlaceholderIcon-avatarImage");
+          if (iconWrapper) {
             const img = document.createElement("img");
-            img.src = AISLON_CONFIG.paths.avatarIcon;
+            img.src = "media/aislonHat.png";
             img.width = 22;
             img.height = 22;
-            img.alt = "Aislon Avatar";
-            Object.assign(img.style, {
-              margin: "auto",
-              display: "block"
-            });
-
-            Object.assign(iconWrapper.style, {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center"
-            });
-
+            img.style.margin = "auto";
+            img.style.display = "block";
+            iconWrapper.style.display = "flex";
+            iconWrapper.style.justifyContent = "center";
+            iconWrapper.style.alignItems = "center";
             iconWrapper.innerHTML = "";
             iconWrapper.appendChild(img);
-            log('Avatar icon replaced successfully');
-          } catch (error) {
-            log(`Avatar replacement failed: ${error}`, 'error');
+            observer.disconnect();
+            break;
           }
         }
-      }, 250);
+      });
 
-      const observer = new MutationObserver(debouncedReplace);
       observer.observe(document.body, { 
         childList: true, 
         subtree: true 
       });
-    };
+    }
 
-    // Initialize App
+    // Initialize on DOM load
     document.addEventListener("DOMContentLoaded", () => {
-      setupNetlifyIdentity();
       setupPersistentButtonInjection();
       replaceAvatarIcon();
     });
@@ -249,18 +193,18 @@
     <style>
     @media (max-width: 799px) {
       /* Bring Any Dropdown To Center Of Page */
-      [class*=DropdownList] {
-        position: fixed !important;
-        min-width: 20% !important;
-        width: 90% !important;
-        margin: auto !important;
-        height: fit-content !important;
-        top: auto !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 10px !important;
-        background: #e6f4fd !important;
-        border: 2px solid #3a69c7 !important;
+      [class*=DropdownList]{
+        position: fixed;
+        min-width: 20%;
+        width: 90%;
+        margin: auto;
+        height: fit-content;
+        top: auto;
+        left: 0;
+        right: 0;
+        bottom: 10px;
+        background: #e6f4fd;
+        border: 2px solid #3a69c7;
       }
       /* Add Overflow To Modal Window */
       [class*=StyledModal]{
