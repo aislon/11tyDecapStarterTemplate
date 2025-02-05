@@ -5,346 +5,212 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
     <title>Aislon Web Manager</title>
-    <style>
-     
-
-      .analytics-link:hover {
-        color: rgb(58, 105, 199);
-      }
-      
-      .analytics-link:hover .analytiscIcon svg path {
-        stroke: rgb(58, 105, 199);
-        transition: stroke 0.2s ease;
-      }
-    </style>
   </head>
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
-     <!-- <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>  -->
-  
     <script src="https://aislon-cdn.pages.dev/cms/latest/aislon-decap-cms.js"></script> 
+    <script src="netlify-identity-widget.js"></script>
 
-    <!-- <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> -->
-       <script src="netlify-identity-widget.js"></script>
+    <script>
+      // Function to inject custom CSS and JS
+      function injectCustomResources() {
+        // Inject CSS
+        const cssLink = document.createElement('link');
+        cssLink.rel = 'stylesheet';
+        cssLink.href = 'https://aislon-cdn.pages.dev/cms/latest/aislon-decap-cms.css';
+        document.head.appendChild(cssLink);
 
-        <!-- Script for accepting netlify auth link callbacks? -->
-       <script>
-        // Initialize Netlify Identity
-        if (window.netlifyIdentity) {
-          window.netlifyIdentity.on("init", user => {
-            if (!user) {
-              window.netlifyIdentity.on("login", () => {
-                document.location.href = "/admin/";
-              });
-            }
-          });
-  
-          // Handle redirect after email confirmation
-          window.netlifyIdentity.on("error", err => console.error("Netlify Identity error:", err));
-          window.netlifyIdentity.on("login", () => {
-            console.log("Logged in successfully");
-            window.location.href = "/admin/#/";
-          });
-          window.netlifyIdentity.on("logout", () => {
-            console.log("Logged out");
-            window.location.href = "/";
-          });
-        }
-      </script>
+        // Inject JS
+        const script = document.createElement('script');
+        script.src = 'https://aislon-cdn.pages.dev/cms/latest/aislon-decap-cms.js';
+        document.body.appendChild(script);
+      }
 
+      // Initialize Netlify Identity
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
 
-   
+        // Handle redirect after email confirmation
+        window.netlifyIdentity.on("error", err => console.error("Netlify Identity error:", err));
+        window.netlifyIdentity.on("login", () => {
+          console.log("Logged in successfully");
+          window.location.href = "/admin/#/";
+        });
+        window.netlifyIdentity.on("logout", () => {
+          console.log("Logged out");
+          window.location.href = "/";
+        });
+      }
 
+      // Inject custom resources on page load
+      injectCustomResources();
 
+      // Observe changes in the CMS content and re-inject resources
+      const observer = new MutationObserver(() => {
+        injectCustomResources();
+      });
 
+      observer.observe(document.body, { childList: true, subtree: true });
+    </script>
 
     <!-- Custom script to inject sidebar buttons -->
-<script>
+    <script>
 
-let ANALYTICS_URL = '/analytics';
-let SIDE_ID = 'custom-section';
+      let ANALYTICS_URL = '/analytics';
+      let SIDE_ID = 'custom-section';
 
+      document.addEventListener('DOMContentLoaded', function() {
+        function injectSidebarButtons() {
+          const sidebarNav = document.querySelector('.css-kxvohc-SidebarNavList');
+          
+          if (!sidebarNav) {
+            console.log('Sidebar nav not found, retrying...');
+            return false;
+          }
 
+          if (document.querySelector('#custom-section')) {
+            return true;
+          }
 
-document.addEventListener('DOMContentLoaded', function() {
-  function injectSidebarButtons() {
-    const sidebarNav = document.querySelector('.css-kxvohc-SidebarNavList');
-    
-    if (!sidebarNav) {
-      console.log('Sidebar nav not found, retrying...');
-      return false;
-    }
+          // Create custom section container
+          const customSection = document.createElement('div');
+          customSection.id = 'custom-section';
+          customSection.style.marginTop = '8px';         // Added top margin
+          customSection.style.marginBottom = '8px';      // Reduced from 12px
+          customSection.style.paddingBottom = '8px';     // Reduced from 12px
+          customSection.style.width = '100%';
+          customSection.style.display = 'flex';
 
-    if (document.querySelector('#custom-section')) {
-      return true;
-    }
+          // Create navigation container with proper styling
+          const customNav = document.createElement('ul');
+          customNav.className = 'css-kxvohc-SidebarNavList';
+          customNav.style.width = '100%';
+          customNav.style.display = 'flex';
+          customNav.style.gap = '8px';
+          customNav.style.padding = '0 12px';
+          customNav.style.margin = '0';
+          customNav.style.listStyle = 'none';
 
-    // Create custom section container
-    const customSection = document.createElement('div');
-    customSection.id = 'custom-section';
-    customSection.style.marginTop = '8px';         // Added top margin
-    customSection.style.marginBottom = '8px';      // Reduced from 12px
-    customSection.style.paddingBottom = '8px';     // Reduced from 12px
-    customSection.style.width = '100%';
-    customSection.style.display = 'flex';
+          // Create Analytics button with matching CMS styling
+          const analyticsButton = document.createElement('li');
+          analyticsButton.style.flex = '1';
+          analyticsButton.innerHTML = `
+            <a href="`+ ANALYTICS_URL +`" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="
+              width: 100%;
+              padding: 10px 12px;
+              display: flex;
+              align-items: center;
+              font-size: 14px;
+              color: #000;
+              text-decoration: none;
+              background-color: #f5f5f5;
+              border-radius: 6px;
+              transition: all 0.2s ease;
+              height: 100%;
+            ">
+              <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
+                <img src="/admin/media/analytic.svg" width="24" height="24" />
+              </span>
+              <span style="flex: 1;">Analytics</span>
+            </a>`;
 
-    // Create navigation container with proper styling
-    const customNav = document.createElement('ul');
-    customNav.className = 'css-kxvohc-SidebarNavList';
-    customNav.style.width = '100%';
-    customNav.style.display = 'flex';
-    customNav.style.gap = '8px';
-    customNav.style.padding = '0 12px';
-    customNav.style.margin = '0';
-    customNav.style.listStyle = 'none';
+          // Create Site Info button with matching CMS styling
+          const siteInfoButton = document.createElement('li');
+          siteInfoButton.style.flex = '1';
+          siteInfoButton.innerHTML = `
+            <a href="/site-info" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="
+              width: 100%;
+              padding: 6px 12px;
+              display: flex;
+              align-items: center;
+              font-size: 14px;
+              color: #000;
+              text-decoration: none;
+              background-color: #f5f5f5;
+              border-radius: 6px;
+              transition: all 0.2s ease;
+              height: 100%;
+            ">
+              <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
+                <img src="/admin/media/info.svg" width="24" height="24" />
+              </span>
+              <span style="flex: 1;">Site Info</span>
+            </a>`;
 
-    // Create Analytics button with matching CMS styling
-    const analyticsButton = document.createElement('li');
-    analyticsButton.style.flex = '1';
-    analyticsButton.innerHTML = `
-      <a href="`+ ANALYTICS_URL +`" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="
-        width: 100%;
-        padding: 10px 12px;
-        display: flex;
-        align-items: center;
-        font-size: 14px;
-        color: #000;
-        text-decoration: none;
-        background-color: #f5f5f5;
-        border-radius: 6px;
-        transition: all 0.2s ease;
-        height: 100%;
-      ">
-        <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
-          <img src="/admin/media/analytic.svg" width="24" height="24" />
-        </span>
-        <span style="flex: 1;">Analytics</span>
-      </a>`;
+          // Add hover effect with JavaScript
+          [analyticsButton, siteInfoButton].forEach(button => {
+            const link = button.querySelector('a');
+            link.addEventListener('mouseenter', () => {
+              link.style.backgroundColor = '#e9e9e9';
+            });
+            link.addEventListener('mouseleave', () => {
+              link.style.backgroundColor = '#f5f5f5';
+            });
+          });
 
-    // Create Site Info button with matching CMS styling
-    const siteInfoButton = document.createElement('li');
-    siteInfoButton.style.flex = '1';
-    siteInfoButton.innerHTML = `
-      <a href="/site-info" class="css-mt2v94-SidebarNavLink-sidebarNavLinkActive-SidebarNavLink" style="
-        width: 100%;
-        padding: 6px 12px;
-        display: flex;
-        align-items: center;
-        font-size: 14px;
-        color: #000;
-        text-decoration: none;
-        background-color: #f5f5f5;
-        border-radius: 6px;
-        transition: all 0.2s ease;
-        height: 100%;
-      ">
-        <span class="e1jeq5dr0 css-5nxuzj-IconWrapper" style="margin-right: 8px;">
-          <img src="/admin/media/info.svg" width="24" height="24" />
-        </span>
-        <span style="flex: 1;">Site Info</span>
-      </a>`;
+          // Assemble section
+          customNav.appendChild(analyticsButton);
+          customNav.appendChild(siteInfoButton);
+          customSection.appendChild(customNav);
 
-    // Add hover effect with JavaScript
-    [analyticsButton, siteInfoButton].forEach(button => {
-      const link = button.querySelector('a');
-      link.addEventListener('mouseenter', () => {
-        link.style.backgroundColor = '#e9e9e9';
+          // Insert at the beginning of sidebar
+          sidebarNav.parentNode.insertBefore(customSection, sidebarNav.parentNode.firstChild);
+
+          return true;
+        }
+
+        let attempts = 0;
+        const maxAttempts = 10;
+
+        function tryInjectButtons() {
+          if (attempts >= maxAttempts) return;
+          
+          if (!injectSidebarButtons()) {
+            attempts++;
+            setTimeout(tryInjectButtons, 1000);
+          }
+        }
+
+        tryInjectButtons();
       });
-      link.addEventListener('mouseleave', () => {
-        link.style.backgroundColor = '#f5f5f5';
-      });
-    });
 
-    // Assemble section
-    customNav.appendChild(analyticsButton);
-    customNav.appendChild(siteInfoButton);
-    customSection.appendChild(customNav);
+      // Inject custom icon for user avatar
+      document.addEventListener("DOMContentLoaded", function() {
+          const targetNode = document.body;
+          const config = { childList: true, subtree: true };
 
-    // Insert at the beginning of sidebar
-    sidebarNav.parentNode.insertBefore(customSection, sidebarNav.parentNode.firstChild);
-
-    return true;
-  }
-
-  let attempts = 0;
-  const maxAttempts = 10;
-
-  function tryInjectButtons() {
-    if (attempts >= maxAttempts) return;
-    
-    if (!injectSidebarButtons()) {
-      attempts++;
-      setTimeout(tryInjectButtons, 1000);
-    }
-  }
-
-  tryInjectButtons();
-});
-</script>
-
-
-
-<style>
-  /** Adapted By Mani Kumar (https://manikumar.in/blog/mobile-optimized-decap-netlify-cms/) From Source: https://gist.github.com/searls/7fd2c3223571a58a81006e7da66bd064 */
-@media (max-width: 799px) {
-    /* Bring Any Dropdown To Center Of Page */
-     [class*=DropdownList]{
-         position: fixed;
-         min-width: 20%;
-         width: 90%;
-         margin: auto;
-         height: fit-content;
-         top: auto;
-         left: 0;
-         right: 0;
-         bottom: 10px;
-         background: #e6f4fd;
-         border: 2px solid #3a69c7;
-    }
-    /* Add Overflow To Modal Window */
-     [class*=StyledModal]{
-         width: 90dvw;
-         width: 90%;
-    }
-     [class*=LibraryTitle]{
-         display: none;
-    }
-     [class*=CollectionTopNewButton]{
-         padding: 0px 10px !important;
-         height: auto;
-    }
-     [class*=LibraryTop]{
-         overflow-x: auto;
-         height: fit-content;
-         padding-bottom: 10px;
-    }
-    /* Hide Blog Post Title From Navbar */
-     [class*=BackCollection]{
-         display: none;
-    }
-    /* Add Padding To Control Pane */
-     [class*=ControlPaneContainer] {
-         padding: 0px 10px;
-    }
-    /* Rest As Per: Searl's Code*/
-     [class*=BackCollection], [class*=BackStatus] {
-         font-size: .6rem;
-    }
-     [class*=AppHeaderContent], [class*=AppMainContainer] {
-         margin-right: 0;
-         margin-left: 0;
-         min-width: calc(100vw - 24px);
-         max-width: 100vw;
-    }
-     [class*=AppHeaderContent] {
-         display: flex;
-         justify-content: space-between;
-    }
-     [class*=AppHeaderQuickNewButton] {
-         width: 100%;
-    }
-     [class*=AppHeaderButton] {
-         padding-left: 4px;
-         padding-right: 4px;
-    }
-     [class*=EditorContainer], [class*=ToolbarContainer] {
-         min-width: initial;
-         overflow-x: auto;
-    }
-     [class*=ToolbarSubSectionFirst] {
-         display: flex;
-         flex-direction: column;
-    }
-     [class*=PublishedToolbarButton] {
-         padding: 0 8px;
-    }
-     [class*=PublishedToolbarButton]::after {
-         display: none;
-    }
-     [class*=ToolbarSubSectionFirst] {
-         flex-direction: row;
-    }
-     [class*=SearchInput] {
-         margin-top: 5px;
-    }
-     [class*=ViewControls] {
-         position: initial;
-    }
-     [class*=PreviewPaneContainer-ControlPaneContainer] {
-         padding: 0;
-    }
-     [class*=ControlPaneContainer] {
-         max-width: 100vw;
-    }
-     [class*=EditorControlBar] [class*=ToolbarContainer] {
-         display: flex;
-         flex-direction: column;
-    }
-     [class*=CollectionContainer] {
-         display: flex;
-         flex-direction: column;
-    }
-     [class*=SidebarContainer] {
-         position: initial;
-         width: initial;
-    }
-     [class*=CollectionMain] {
-         padding-left: 0;
-         margin-top: 20px;
-    }
-}
-
-</style>
-
-
-
-<style>
-  /**
- * Minified by jsDelivr using clean-css v5.3.3.
- * Original file: /gh/hithismani/responsive-decap@main/dist/responsive.css
- *
- * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
- */
-@media (max-width:799px){[class*=DropdownList]{position:fixed!important;min-width:20%!important;width:90%!important;margin:auto!important;height:fit-content!important;top:auto!important;left:0!important;right:0!important;bottom:10px!important;background:#e6f4fd!important;border:2px solid #3a69c7!important}[class*=StyledModal]{width:90dvw!important;width:90%!important}[class*=LibraryTitle]{display:none!important}[class*=CollectionTopNewButton]{padding:0 10px!important;height:auto!important}[class*=LibraryTop]{overflow-x:auto!important;height:fit-content!important;padding-bottom:10px!important}[class*=BackCollection]{display:none!important}[class*=ControlPaneContainer]{padding:0 10px!important}[class*=BackCollection],[class*=BackStatus]{font-size:.6rem!important}[class*=AppHeaderContent],[class*=AppMainContainer]{margin-right:0!important;margin-left:0!important;min-width:calc(100vw - 24px)!important;max-width:100vw!important}[class*=AppHeaderContent]{display:flex!important;justify-content:space-between!important}[class*=AppHeaderQuickNewButton]{width:100%!important}[class*=AppHeaderButton]{padding-left:4px!important;padding-right:4px!important}[class*=EditorContainer],[class*=ToolbarContainer]{min-width:initial!important;overflow-x:auto!important}[class*=ToolbarSubSectionFirst]{display:flex!important;flex-direction:column!important}[class*=PublishedToolbarButton]{padding:0 8px!important}[class*=PublishedToolbarButton]::after{display:none!important}[class*=ToolbarSubSectionFirst]{flex-direction:row!important}[class*=SearchInput]{margin-top:5px!important}[class*=ViewControls]{position:initial!important}[class*=PreviewPaneContainer-ControlPaneContainer]{padding:0!important}[class*=ControlPaneContainer]{max-width:100vw!important}[class*=EditorControlBar] [class*=ToolbarContainer]{display:flex!important;flex-direction:column!important}[class*=CollectionContainer]{display:flex!important;flex-direction:column!important}[class*=SidebarContainer]{position:initial!important;width:initial!important}[class*=CollectionMain]{padding-left:0!important;margin-top:20px!important}}
-/*# sourceMappingURL=/sm/639d91c70cde99050082c378e724c7fea5cfce0bbb4bffd8ea88856af8f9bf2b.map */
-</style>
-
-
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-      const targetNode = document.body;
-      const config = { childList: true, subtree: true };
-
-      const callback = function(mutationsList, observer) {
-          for (const mutation of mutationsList) {
-              if (mutation.type === 'childList') {
-                  const iconWrapper = document.querySelector(".css-16ibyj6-IconWrapper-AvatarPlaceholderIcon-avatarImage");
-                  if (iconWrapper) {
-                      const img = document.createElement("img");
-                      img.src = "media/aislonHat.png"; // Replace with the path to your SVG image
-                      img.width = 22;
-                      img.height = 22;
-                      img.style.margin = "auto";
-                      img.style.display = "block";
-                      iconWrapper.style.display = "flex";
-                      iconWrapper.style.justifyContent = "center";
-                      iconWrapper.style.alignItems = "center";
-                      iconWrapper.innerHTML = "";
-                      iconWrapper.appendChild(img);
-                      observer.disconnect(); // Stop observing once the element is found and replaced
-                      break;
+          const callback = function(mutationsList, observer) {
+              for (const mutation of mutationsList) {
+                  if (mutation.type === 'childList') {
+                      const iconWrapper = document.querySelector(".css-16ibyj6-IconWrapper-AvatarPlaceholderIcon-avatarImage");
+                      if (iconWrapper) {
+                          const img = document.createElement("img");
+                          img.src = "media/aislonHat.png"; // Replace with the path to your SVG image
+                          img.width = 22;
+                          img.height = 22;
+                          img.style.margin = "auto";
+                          img.style.display = "block";
+                          iconWrapper.style.display = "flex";
+                          iconWrapper.style.justifyContent = "center";
+                          iconWrapper.style.alignItems = "center";
+                          iconWrapper.innerHTML = "";
+                          iconWrapper.appendChild(img);
+                          observer.disconnect(); // Stop observing once the element is found and replaced
+                          break;
+                      }
                   }
               }
-          }
-      };
+          };
 
-      const observer = new MutationObserver(callback);
-      observer.observe(targetNode, config);
-  });
-</script>
-
-
-    </body>
-    </html>
+          const observer = new MutationObserver(callback);
+          observer.observe(targetNode, config);
+      });
+    </script>
+  </body>
+</html>
