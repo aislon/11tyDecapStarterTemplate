@@ -4,14 +4,14 @@ backend:
   branch: main
   ### enable below lines for github integration ###
   # name: github
-  repo: aislon/aislon-static-cms
+  repo: aislon/11tyDecapStarterTemplate
 media_folder: "assets/img"        
 public_folder: "/static/img"
 site_url: https://cms.aislon.com/
 logo_url: /admin/media/aislonLogo.png
 
 # Please run "npx netlify-cms-proxy-server" for local backend
-local_backend: false
+local_backend: true
 # publish_mode: editorial_workflow
 collections:
 - label: "Home"
